@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.test import TestCase
+from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django_webtest import WebTest
@@ -49,3 +50,11 @@ class TemplateFilterTest(WebTest):
         response = self.app.get(reverse('admin:tests_ship_change',
                                         args=[ship.id]))
         self.assertIn('<p>Star of India</p>', response.unicode_normal_body)
+
+
+class RelatedObjectsTagTest(TestCase):
+    def test_related_foreign_keys(self):
+        ship = Ship.objects.create(id=1, name="Star of India")
+        body = render_to_string('related_objects_test.html', {'ship': ship})
+        self.assertEqual(body.strip(),
+                         '<a href="/adm/tests/sailor/?ship=1">Sailors</a>')

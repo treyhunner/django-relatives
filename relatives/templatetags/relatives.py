@@ -1,4 +1,6 @@
 from django.template import Library
+from django.core.urlresolvers import reverse, NoReverseMatch
+from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
 from django.contrib.admin.util import lookup_field
 
@@ -19,3 +21,21 @@ def contents_or_fk_link(field):
                          (get_admin_url(getattr(obj, field_name)), contents))
     else:
         return contents
+
+
+@register.assignment_tag
+def related_objects(obj):
+    object_list = []
+    related_objects = (obj._meta.get_all_related_objects() +
+                       obj._meta.get_all_related_many_to_many_objects())
+    for related in related_objects:
+        try:
+            url = reverse('admin:{0}_{1}_changelist'.format(
+                          *related.name.split(':')))
+        except NoReverseMatch:
+            continue
+        object_list.append({
+            'plural_name': related.model._meta.verbose_name_plural,
+            'url': smart_text('%s?%s=%s' % (url, related.field.name, obj.pk)),
+        })
+    return object_list
