@@ -14,8 +14,9 @@ if not settings.configured:
             'django.contrib.contenttypes',
             'django.contrib.sessions',
             'django.contrib.auth',
-            'django.contrib.admin',
+            'relatives',
             'relatives.tests',
+            'django.contrib.admin',
         ),
         DATABASES={
             'default': {
@@ -23,6 +24,7 @@ if not settings.configured:
             }
         },
         ROOT_URLCONF='relatives.tests.urls',
+        STATIC_URL='/static/',
     )
 
 

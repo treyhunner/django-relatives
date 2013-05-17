@@ -13,3 +13,11 @@ class Ship(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Sailor(models.Model):
+    name = models.CharField(max_length=80)
+    ship = models.ForeignKey(Ship)
+
+    def __unicode__(self):
+        return self.name
