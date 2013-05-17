@@ -19,3 +19,15 @@ django-relatives
    :alt: Download Count
 
 Utilities for linking to related objects in Django admin
+
+
+Related Projects
+----------------
+
+Thanks to the community for inspiration:
+
+- `linked readonly foreign key code snippet`_
+- various `StackOverflow answers`_ about related object links in admin
+
+.. _stackoverflow answers: http://stackoverflow.com/a/5331032/98187
+.. _linked readonly foreign key code snippet: http://djangosnippets.org/snippets/2657/
