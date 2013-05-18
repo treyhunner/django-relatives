@@ -17,5 +17,12 @@ class SailorAdmin(admin.ModelAdmin):
 admin.site.register(models.Sailor, SailorAdmin)
 
 
+class PetAdmin(admin.ModelAdmin):
+    readonly_fields = ['owner']
+
+
+admin.site.register(models.Pet, PetAdmin)
+
+
 admin.site.register(models.Movie)
 admin.site.register(models.Actor)

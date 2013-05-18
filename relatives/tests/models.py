@@ -8,6 +8,10 @@ class Pirate(models.Model):
         return self.name
 
 
+class Pet(models.Model):
+    owner = models.ForeignKey(Pirate)
+
+
 class Ship(models.Model):
     name = models.CharField(max_length=40)
 
@@ -17,7 +21,7 @@ class Ship(models.Model):
 
 class Sailor(models.Model):
     name = models.CharField(max_length=80)
-    ship = models.ForeignKey(Ship)
+    ship = models.ForeignKey(Ship, null=True)
 
     def __unicode__(self):
         return self.name

@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django_webtest import WebTest
 
 from relatives.utils import edit_link
-from .models import Pirate, Ship, Sailor, Movie, Actor, NotInAdmin, Something
+from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
+                     Something)
 
 
 class EditLinkTest(TestCase):
@@ -50,6 +51,23 @@ class TemplateFilterTest(WebTest):
         response = self.app.get(reverse('admin:tests_ship_change',
                                         args=[ship.id]))
         self.assertIn('<p>Star of India</p>', response.unicode_normal_body)
+
+    def test_foreign_key_without_admin_url(self):
+        self.login()
+        pirate = Pirate.objects.create(id=1, name="Kristi Bell")
+        pet = Pet.objects.create(owner=pirate)
+        response = self.app.get(reverse('admin:tests_pet_change',
+                                        args=[pet.id]))
+        self.assertIn('Kristi Bell', response.unicode_normal_body)
+        self.assertNotIn('Kristi Bell</a>', response.unicode_normal_body)
+        self.assertNotIn('Kristi Bell</option>', response.unicode_normal_body)
+
+    def test_nullable_foreign_key(self):
+        self.login()
+        sailor = Sailor.objects.create(name="John Ford")
+        response = self.app.get(reverse('admin:tests_sailor_change',
+                                        args=[sailor.id]))
+        self.assertIn('(None)', response.unicode_normal_body)
 
 
 class RelatedObjectsTagTest(TestCase):
