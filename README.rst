@@ -27,7 +27,9 @@ Related Projects
 Thanks to the community for inspiration:
 
 - `linked readonly foreign key code snippet`_
+- `django-inlaws`_
 - various `StackOverflow answers`_ about related object links in admin
 
+.. _django-inlaws: https://github.com/callowayproject/django-inlaws
 .. _stackoverflow answers: http://stackoverflow.com/a/5331032/98187
 .. _linked readonly foreign key code snippet: http://djangosnippets.org/snippets/2657/
