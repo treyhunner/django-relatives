@@ -5,11 +5,13 @@ from django.core.urlresolvers import reverse
 
 
 def get_admin_url(obj):
+    """Return admin URL for given object (raise NoReverseMatch on error)"""
     options = obj._meta.app_label, obj._meta.module_name
     return reverse('admin:%s_%s_change' % options, args=[obj.pk])
 
 
 def edit_link(obj):
+    """Return admin link to given object or object representation if no link"""
     link_text = smart_text(obj)
     try:
         if obj.pk:

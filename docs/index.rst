@@ -1,22 +1,40 @@
-.. django-relatives documentation master file, created by
-   sphinx-quickstart on Thu May 16 15:28:58 2013.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+django-relatives
+================
 
-Welcome to django-relatives's documentation!
-============================================
+django-relatives provides various utilites that allow easily linking to
+related objects in the Django admin site.
 
-Contents:
+Installation
+------------
 
-.. toctree::
-   :maxdepth: 2
+Install from `PyPI`_:
 
+.. code-block:: bash
+
+    $ pip install django-relatives
+
+.. _PyPI: https://pypi.python.org/pypi/django-relatives/
+
+
+API Reference
+=============
+
+Utility Functions
+-----------------
+
+.. automodule:: relatives.utils
+   :members:
+
+Template Tags
+-------------
+
+.. automodule:: relatives.templatetags.relatives
+   :members:
 
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
