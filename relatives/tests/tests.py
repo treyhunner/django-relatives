@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django_webtest import WebTest
 
 from relatives.utils import edit_link
-from .models import Pirate, Ship, Sailor
+from .models import Pirate, Ship, Sailor, Movie, Actor, NotInAdmin, Something
 
 
 class EditLinkTest(TestCase):
@@ -53,8 +53,31 @@ class TemplateFilterTest(WebTest):
 
 
 class RelatedObjectsTagTest(TestCase):
-    def test_related_foreign_keys(self):
+    def test_foreign_keys(self):
         ship = Ship.objects.create(id=1, name="Star of India")
-        body = render_to_string('related_objects_test.html', {'ship': ship})
+        body = render_to_string('related_objects_fk_test.html', {'obj': ship})
         self.assertEqual(body.strip(),
                          '<a href="/adm/tests/sailor/?ship=1">Sailors</a>')
+
+    def test_no_admin_url(self):
+        thing = Something.objects.create()
+        NotInAdmin.objects.create(id=1, fk=thing)
+        body = render_to_string('related_objects_fk_test.html', {'obj': thing})
+        self.assertEqual(body.strip(), '')
+
+    def test_many_to_many(self):
+        movie = Movie.objects.create(id=1, name="Yojimbo")
+        actor = Actor.objects.create(name="Tatsuya Nakadai")
+        actor.movies.add(movie)
+        body = render_to_string('related_objects_m2m_test.html',
+                                {'obj': movie})
+        self.assertEqual(body.strip(),
+                         '<a href="/adm/tests/actor/?movies=1">Actors</a>')
+
+    def test_reverse_many_to_many(self):
+        movie = Movie.objects.create(id=1, name="Yojimbo")
+        actor = Actor.objects.create(name="Tatsuya Nakadai")
+        actor.movies.add(movie)
+        body = render_to_string('related_objects_m2m_test.html',
+                                {'obj': actor})
+        self.assertEqual(body.strip(), '')

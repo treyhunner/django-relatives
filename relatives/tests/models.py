@@ -21,3 +21,20 @@ class Sailor(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Actor(models.Model):
+    name = models.CharField(max_length=80)
+    movies = models.ManyToManyField('Movie', related_name='actors')
+
+
+class Movie(models.Model):
+    name = models.CharField(max_length=80)
+
+
+class Something(models.Model):
+    text = models.CharField(max_length=10)
+
+
+class NotInAdmin(models.Model):
+    fk = models.ForeignKey(Something)

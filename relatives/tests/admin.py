@@ -15,3 +15,7 @@ class SailorAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Sailor, SailorAdmin)
+
+
+admin.site.register(models.Movie)
+admin.site.register(models.Actor)
