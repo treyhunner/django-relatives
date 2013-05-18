@@ -3,7 +3,6 @@ from django.test import TestCase
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django_webtest import WebTest
 
 from relatives.utils import edit_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
@@ -26,48 +25,45 @@ class EditLinkTest(TestCase):
         self.assertEqual(edit_link(ship), "Star of India")
 
 
-class TemplateFilterTest(WebTest):
+class TemplateFilterTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_superuser('u', 'u@example.com', 'pass')
 
     def login(self):
-        form = self.app.get(reverse('admin:index')).form
-        form['username'] = self.user.username
-        form['password'] = 'pass'
-        return form.submit()
+        self.client.login(username=self.user.username, password='pass')
 
     def test_foreign_key(self):
         self.login()
         ship = Ship.objects.create(id=1, name="Star of India")
         sailor = Sailor.objects.create(name="John Ford", ship=ship)
-        response = self.app.get(reverse('admin:tests_sailor_change',
-                                        args=[sailor.id]))
-        self.assertIn('<a href="/adm/tests/ship/1/">Star of India</a>',
-                      response.unicode_normal_body)
+        response = self.client.get(reverse('admin:tests_sailor_change',
+                                           args=[sailor.id]))
+        self.assertIn(b'<a href="/adm/tests/ship/1/">Star of India</a>',
+                      response.content)
 
     def test_no_foreign_key(self):
         self.login()
         ship = Ship.objects.create(id=1, name="Star of India")
-        response = self.app.get(reverse('admin:tests_ship_change',
-                                        args=[ship.id]))
-        self.assertIn('<p>Star of India</p>', response.unicode_normal_body)
+        response = self.client.get(reverse('admin:tests_ship_change',
+                                           args=[ship.id]))
+        self.assertIn(b'<p>Star of India</p>', response.content)
 
     def test_foreign_key_without_admin_url(self):
         self.login()
         pirate = Pirate.objects.create(id=1, name="Kristi Bell")
         pet = Pet.objects.create(owner=pirate)
-        response = self.app.get(reverse('admin:tests_pet_change',
-                                        args=[pet.id]))
-        self.assertIn('Kristi Bell', response.unicode_normal_body)
-        self.assertNotIn('Kristi Bell</a>', response.unicode_normal_body)
-        self.assertNotIn('Kristi Bell</option>', response.unicode_normal_body)
+        response = self.client.get(reverse('admin:tests_pet_change',
+                                           args=[pet.id]))
+        self.assertIn(b'Kristi Bell', response.content)
+        self.assertNotIn(b'Kristi Bell</a>', response.content)
+        self.assertNotIn(b'Kristi Bell</option>', response.content)
 
     def test_nullable_foreign_key(self):
         self.login()
         sailor = Sailor.objects.create(name="John Ford")
-        response = self.app.get(reverse('admin:tests_sailor_change',
-                                        args=[sailor.id]))
-        self.assertIn('(None)', response.unicode_normal_body)
+        response = self.client.get(reverse('admin:tests_sailor_change',
+                                           args=[sailor.id]))
+        self.assertIn(b'(None)', response.content)
 
 
 class RelatedObjectsTagTest(TestCase):
