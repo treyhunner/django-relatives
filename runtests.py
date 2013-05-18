@@ -28,11 +28,13 @@ if not settings.configured:
     )
 
 
-def runtests():
+def runtests(*test_args):
+    if not test_args:
+        test_args = ['tests']
     from django.test.simple import DjangoTestSuiteRunner
-    failures = DjangoTestSuiteRunner(failfast=False).run_tests(['tests'])
+    failures = DjangoTestSuiteRunner(failfast=False).run_tests(test_args)
     sys.exit(failures)
 
 
 if __name__ == "__main__":
-    runtests()
+    runtests(*sys.argv[1:])
