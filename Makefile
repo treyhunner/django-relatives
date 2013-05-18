@@ -9,6 +9,11 @@ test:
 	tox
 	coverage html
 
+fast_test:
+	coverage run setup.py test
+	coverage report
+	coverage html
+
 docs: documentation
 
 documentation:
