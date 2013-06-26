@@ -75,3 +75,35 @@ Customizing edit link text
 Result:
 
 .. figure:: images/object_edit_link_example.png
+
+
+Linking to foreign keys
+-----------------------
+
+The ``contents_or_fk_link`` template filter can be used to link to foreign keys
+for readonly admin form fields.
+
+Django Relatives also provides a replacement for the
+``admin/includes/fieldset.html`` template which can be used to automatically
+link to all readonly foreign key fields in change forms.
+
+To use the custom fieldset template you must add ``relatives`` to
+``INSTALLED_APPS`` in your settings file:
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        ...
+        'relatives',
+    )
+
+Next create a ``admin/includes/fieldset.html`` template file::
+
+    {% include "relatives/includes/fieldset.html" %}
+
+Also make sure this template file is in a custom template directory or an app
+listed before your admin app in ``INSTALLED_APPS``.
+
+Result:
+
+.. figure:: images/contents_or_fk_link_example.png
