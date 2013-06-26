@@ -91,6 +91,11 @@ class TemplateFilterTest(TestCase):
                                            args=[sailor.id]))
         self.assertIn(b'(None)', response.content)
 
+    def test_add_form_for_non_nullable_fk(self):
+        self.login()
+        response = self.client.get(reverse('admin:tests_pet_add'))
+        self.assertIn(b'(None)', response.content)
+
 
 class RelatedObjectsTagTest(TestCase):
     def test_foreign_keys(self):
