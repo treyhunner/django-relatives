@@ -10,7 +10,7 @@ def get_admin_url(obj):
     return reverse('admin:%s_%s_change' % options, args=[obj.pk])
 
 
-def edit_link(obj):
+def object_link(obj):
     """Return admin link to given object or object representation if no link"""
     link_text = smart_text(obj)
     try:
@@ -19,5 +19,5 @@ def edit_link(obj):
     except NoReverseMatch:
         pass
     return link_text
-edit_link.__name__ = str("")
-edit_link.allow_tags = True
+object_link.__name__ = str("")
+object_link.allow_tags = True

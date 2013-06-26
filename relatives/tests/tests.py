@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from relatives.utils import edit_link
+from relatives.utils import object_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
                      Something)
 
@@ -13,16 +13,16 @@ class EditLinkTest(TestCase):
 
     def test_no_admin_url(self):
         pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
-        self.assertEqual(edit_link(pirate), "Lowell Taylor")
+        self.assertEqual(object_link(pirate), "Lowell Taylor")
 
     def test_with_primary_key(self):
         ship = Ship.objects.create(id=1, name="Star of India")
-        self.assertEqual(edit_link(ship),
+        self.assertEqual(object_link(ship),
                          '<a href="/adm/tests/ship/1/">Star of India</a>')
 
     def test_no_primary_key(self):
         ship = Ship(name="Star of India")
-        self.assertEqual(edit_link(ship), "Star of India")
+        self.assertEqual(object_link(ship), "Star of India")
 
 
 class TemplateFilterTest(TestCase):
