@@ -1,8 +1,8 @@
 django-relatives
 ================
 
-django-relatives provides various utilites that allow easily linking to
-related objects in the Django admin site.
+django-relatives provides various utilites that make it easy to link related
+objects in the Django admin site.
 
 Contents:
 
@@ -12,6 +12,10 @@ Contents:
    usage
    api
 
+Visit the project `on Github`_ to view the source, submit issues and pull
+requests.
+
+.. _on github: https://github.com/treyhunner/django-relatives
 
 Indices and tables
 ==================

@@ -20,6 +20,21 @@ django-relatives
 
 Utilities for linking to related objects in Django admin
 
+This app requires Django 1.4.2 or greater and Python 2.6 or greater.
+
+
+Getting Help
+------------
+
+Documentation for django-relatives is available at
+https://django-relatives.readthedocs.org/
+
+This app is available on `PyPI`_.
+
+Submit issues on Github: https://github.com/treyhunner/django-relatives/issues
+
+.. _PyPI: https://pypi.python.org/pypi/django-relatives/
+
 
 Related Projects
 ----------------
