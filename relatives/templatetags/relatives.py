@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
 from django.contrib.admin.util import lookup_field
+from django.core.exceptions import ObjectDoesNotExist
 
 from ..utils import get_admin_url
 
@@ -16,15 +17,19 @@ def contents_or_fk_link(field):
     contents = field.contents()
     field_name = field.field['field']
     obj = field.form.instance
-    related_obj = getattr(obj, field_name)
-    model_field = lookup_field(field_name, obj, field.model_admin)[0]
-    if getattr(model_field, 'rel') and hasattr(related_obj, '_meta'):
-        try:
-            return mark_safe('<a href="%s">%s</a>' %
-                            (get_admin_url(related_obj), contents))
-        except NoReverseMatch:
-            pass
-    return contents
+    try:
+        related_obj = getattr(obj, field_name)
+    except ObjectDoesNotExist:
+        return contents
+    else:
+        model_field = lookup_field(field_name, obj, field.model_admin)[0]
+        if getattr(model_field, 'rel') and hasattr(related_obj, '_meta'):
+            try:
+                return mark_safe('<a href="%s">%s</a>' %
+                                (get_admin_url(related_obj), contents))
+            except NoReverseMatch:
+                pass
+        return contents
 
 
 @register.assignment_tag
