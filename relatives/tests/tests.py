@@ -9,7 +9,7 @@ from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
                      Something)
 
 
-class EditLinkTest(TestCase):
+class ObjectLinkTest(TestCase):
 
     def test_no_admin_url(self):
         pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
