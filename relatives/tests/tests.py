@@ -4,9 +4,35 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from relatives.utils import object_link
+from relatives.utils import object_link, object_edit_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
                      Something)
+
+
+class ObjectEditLinkTest(TestCase):
+
+    def test_default(self):
+        ship = Ship.objects.create(id=1, name="Star of India")
+        self.assertEqual(object_edit_link()(ship),
+                         '<a href="/adm/tests/ship/1/">Star of India</a>')
+        pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
+        self.assertEqual(object_edit_link()(pirate), "Lowell Taylor")
+
+    def test_custom_edit_text(self):
+        ship = Ship.objects.create(id=1, name="Star of India")
+        self.assertEqual(object_edit_link("Go There")(ship),
+                         '<a href="/adm/tests/ship/1/">Go There</a>')
+
+    def test_default_blank_text(self):
+        pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
+        self.assertEqual(object_edit_link("Edit")(pirate), "")
+
+    def test_custom_edit_and_blank_text(self):
+        ship = Ship.objects.create(id=1, name="Star of India")
+        pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
+        self.assertEqual(object_edit_link("Go There", "N/A")(ship),
+                         '<a href="/adm/tests/ship/1/">Go There</a>')
+        self.assertEqual(object_edit_link("Go There", "N/A")(pirate), "N/A")
 
 
 class ObjectLinkTest(TestCase):
