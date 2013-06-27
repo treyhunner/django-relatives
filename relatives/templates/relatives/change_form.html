@@ -1,0 +1,52 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+
+<div id="content-main">
+
+{% load relatives %}
+{% related_objects adminform.form.instance as related_objects %}
+<div class="module grp-module" id="filter">
+  {% block relations %}
+  <h2>Relations</h2>
+  <ul>
+  {% for related in related_objects %}
+    <li><a href="{{ related.url }}">
+      {{ related.plural_name|capfirst }}
+    </a></li>
+  {% endfor %}
+  {% endblock relations %}
+  </ul>
+</div>
+
+{{ block.super }}
+
+</div>
+
+{% endblock content %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  #filter {
+    position: absolute;
+    right: 15px;
+    width: 190px;
+    min-width: 180px;
+    text-align: center;
+    margin: 0;
+  }
+  #filter ul {
+    padding: 15px 0;
+    margin: 0;
+  }
+  #filter ul li {
+    font-size: 16px;
+    line-height: 36px;
+    list-style-type: none;
+  }
+  form {
+    margin-right: 200px;
+  }
+</style>
+{% endblock extrastyle %}
