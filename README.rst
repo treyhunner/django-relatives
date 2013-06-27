@@ -39,6 +39,25 @@ a pull request.
 .. _PyPI: https://pypi.python.org/pypi/django-relatives/
 
 
+Screenshots
+-----------
+
+Use hyperlinks for read-only foreign keys on change forms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: docs/images/contents_or_fk_link_example.png
+
+Add edit links to admin inlines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: docs/images/object_edit_link_example.png
+
+Link to reverse relations from from change forms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: docs/images/related_objects_example.png
+
+
 Related Projects
 ----------------
 
