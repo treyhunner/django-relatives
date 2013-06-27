@@ -19,7 +19,7 @@ setup(
     tests_require=['Django >= 1.4.2'],
     test_suite='runtests.runtests',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
