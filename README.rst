@@ -45,17 +45,20 @@ Screenshots
 Use hyperlinks for read-only foreign keys on change forms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: docs/images/contents_or_fk_link_example.png
+.. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/contents_or_fk_link_example.png
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#linking-to-foreign-keys
 
 Add edit links to admin inlines
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: docs/images/object_edit_link_example.png
+.. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/object_edit_link_example.png
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#customizing-edit-link-text
 
 Link to reverse relations from from change forms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: docs/images/related_objects_example.png
+.. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/related_objects_example.png
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#linking-to-reverse-relations
 
 
 Related Projects
