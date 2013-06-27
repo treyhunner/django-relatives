@@ -109,12 +109,17 @@ Result:
 .. figure:: images/contents_or_fk_link_example.png
 
 
-Linking to objects which reference us
--------------------------------------
+Linking to reverse relations
+----------------------------
 
-The ``related_objects`` template tag makes it easy to link to change lists filtered for reverse relations (objects that have a foreign key to a given object).
+The ``related_objects`` template tag makes it easy to link to change lists
+filtered for reverse relations (objects that have a foreign key to a given
+object).
 
-Django Relatives also provides a custom ``change_form.html`` template that may be used to add a "Relations" sidebar to change forms.  This sidebar provides links to change list queries for all objects that contain a foreign key to the current object.
+Django Relatives also provides a custom ``change_form.html`` template that may
+be used to add a "Relations" sidebar to change forms.  This sidebar provides
+links to change list queries for all objects that contain a foreign key to the
+current object.
 
 To use the custom fieldset template you must add ``relatives`` to
 ``INSTALLED_APPS`` in your settings file:
@@ -126,7 +131,8 @@ To use the custom fieldset template you must add ``relatives`` to
         'relatives',
     )
 
-Now you can customize the change form template for your desired models/apps.  Either:
+Now you can customize the change form template for your desired models/apps.
+Either:
 
 1. Set the ``change_form_template`` in your custom model admin
 2. Override your model's ``change_form.html`` template
@@ -134,7 +140,8 @@ Now you can customize the change form template for your desired models/apps.  Ei
 Customize ModelAdmin
 ~~~~~~~~~~~~~~~~~~~~
 
-The easiest way to link to reverse relations is to override the ``change_form_template`` in your ``ModelAdmin`` subclass:
+The easiest way to link to reverse relations is to override the
+``change_form_template`` in your ``ModelAdmin`` subclass:
 
 .. code-block:: python
 
@@ -154,9 +161,12 @@ The easiest way to link to reverse relations is to override the ``change_form_te
 Custom template
 ~~~~~~~~~~~~~~~
 
-If you don't have access to change the ``ModelAdmin`` for your model or you are already customizing your model's admin change form, you will need to use a custom admin template.
+If you don't have access to change the ``ModelAdmin`` for your model or you are
+already customizing your model's admin change form, you will need to use a
+custom admin template.
 
-Create a ``admin/YOURAPP/YOURMODEL/change_form.html`` template file that extends from ``relatives/change_form.html``::
+Create a ``admin/YOURAPP/YOURMODEL/change_form.html`` template file that
+extends from ``relatives/change_form.html``::
 
     {% include "relatives/change_form.html" %}
 
