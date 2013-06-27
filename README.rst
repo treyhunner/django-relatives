@@ -33,6 +33,9 @@ This app is available on `PyPI`_.
 
 Submit issues on Github: https://github.com/treyhunner/django-relatives/issues
 
+Pull requests are welcome.  Read the CONTRIBUTING file for tips on submitting
+a pull request.
+
 .. _PyPI: https://pypi.python.org/pypi/django-relatives/
 
 
