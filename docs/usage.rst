@@ -16,6 +16,15 @@ Install from `PyPI`_:
 Edit links in inlines
 ---------------------
 
+To link to an inline object, include :func:`relatives.utils.object_link` in
+your admin inline's ``fields`` list and ``readonly_fields`` list.
+
+Example
+~~~~~~~
+
+Code
+++++
+
 .. code-block:: python
 
     from django.contrib import admin
@@ -41,13 +50,24 @@ Edit links in inlines
 
     admin.site.register(Employee)
 
-Result:
+Screenshot
+++++++++++
 
 .. figure:: images/object_link_example.png
 
 
-Customizing edit link text
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Customizing inline edit links
+-----------------------------
+
+To customize the link text for your inline links, use
+:func:`relatives.utils.object_edit_link` instead, specifying the edit text
+and blank text (both are optional).
+
+Example
+~~~~~~~
+
+Code
+++++
 
 .. code-block:: python
 
@@ -72,7 +92,8 @@ Customizing edit link text
 
     admin.site.register(Employee)
 
-Result:
+Screenshot
+++++++++++
 
 .. figure:: images/object_edit_link_example.png
 
@@ -99,12 +120,13 @@ To use the custom fieldset template you must add ``relatives`` to
 
 Next create a ``admin/includes/fieldset.html`` template file::
 
-    {% include "relatives/includes/fieldset.html" %}
+    {% extends "relatives/includes/fieldset.html" %}
 
 Also make sure this template file is in a custom template directory or an app
 listed before your admin app in ``INSTALLED_APPS``.
 
-Result:
+Example Screenshot
+~~~~~~~~~~~~~~~~~~
 
 .. figure:: images/contents_or_fk_link_example.png
 
@@ -132,16 +154,14 @@ To use the custom fieldset template you must add ``relatives`` to
     )
 
 Now you can customize the change form template for your desired models/apps.
-Either:
-
-1. Set the ``change_form_template`` in your custom model admin
-2. Override your model's ``change_form.html`` template
-
-Customize ModelAdmin
-~~~~~~~~~~~~~~~~~~~~
-
 The easiest way to link to reverse relations is to override the
-``change_form_template`` in your ``ModelAdmin`` subclass:
+``change_form_template`` in your ``ModelAdmin`` subclass.
+
+Example
+~~~~~~~
+
+Code
+++++
 
 .. code-block:: python
 
@@ -158,24 +178,23 @@ The easiest way to link to reverse relations is to override the
 
     admin.site.register(Employee)
 
-Custom template
-~~~~~~~~~~~~~~~
+Screenshot
+++++++++++
+
+.. figure:: images/related_objects_example.png
+
+
+Linking to reverse relations with custom template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you don't have access to change the ``ModelAdmin`` for your model or you are
 already customizing your model's admin change form, you will need to use a
-custom admin template.
+custom admin template instead.
 
 Create a ``admin/YOURAPP/YOURMODEL/change_form.html`` template file that
 extends from ``relatives/change_form.html``::
 
-    {% include "relatives/change_form.html" %}
+    {% extends "relatives/change_form.html" %}
 
 Also make sure this template file is in a custom template directory or an app
 listed before your admin app in ``INSTALLED_APPS``.
-
-Result
-~~~~~~
-
-Both of the above methods will result in the following:
-
-.. figure:: images/related_objects_example.png
