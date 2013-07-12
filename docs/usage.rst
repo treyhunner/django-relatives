@@ -16,8 +16,9 @@ Install from `PyPI`_:
 Edit links in inlines
 ---------------------
 
-To link to an inline object, include :func:`relatives.utils.object_link` in
-your admin inline's ``fields`` list and ``readonly_fields`` list.
+To link to an inline object, include the
+:func:`object_link <relatives.utils.object_link>` utility function in your
+admin inline's ``fields`` list and ``readonly_fields`` list.
 
 Example
 ~~~~~~~
@@ -60,7 +61,8 @@ Customizing inline edit links
 -----------------------------
 
 To customize the link text for your inline links, use
-:func:`relatives.utils.object_edit_link` instead, specifying the edit text
+the :func:`object_edit_link <relatives.utils.object_edit_link>` utility
+function instead, specifying the edit text
 and blank text (both are optional).
 
 Example
@@ -101,7 +103,7 @@ Screenshot
 Linking to foreign keys
 -----------------------
 
-The ``contents_or_fk_link`` template filter can be used to link to foreign keys
+The :func:`contents_or_fk_link <relatives.templatetags.relatives.contents_or_fk_link>` template filter can be used to link to foreign keys
 for readonly admin form fields.
 
 Django Relatives also provides a replacement for the
@@ -134,7 +136,7 @@ Example Screenshot
 Linking to reverse relations
 ----------------------------
 
-The ``related_objects`` template tag makes it easy to link to change lists
+The :func:`related_objects <relatives.templatetags.relatives.related_objects>` template tag makes it easy to link to change lists
 filtered for reverse relations (objects that have a foreign key to a given
 object).
 
