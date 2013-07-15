@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.utils.encoding import smart_text
+from django.utils.html import format_html
 from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 
@@ -30,7 +31,8 @@ def object_edit_link(edit_text=None, blank_text=None):
         link_text = smart_text(obj) if edit_text is None else edit_text
         try:
             if obj.pk:
-                return '<a href="%s">%s</a>' % (get_admin_url(obj), link_text)
+                return format_html('<a href="{0}">{1}</a>', get_admin_url(obj),
+                                   link_text)
         except NoReverseMatch:
             pass
         if blank_text is None:
@@ -46,4 +48,5 @@ def object_edit_link(edit_text=None, blank_text=None):
 
 
 object_link = object_edit_link()
+object_link.allow_tags = True
 object_link.__doc__ += "\n\nEquivalent to object_edit_link()(obj)"
