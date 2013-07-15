@@ -20,7 +20,7 @@ django-relatives
 
 Utilities for linking to related objects in Django admin
 
-This app requires Django 1.4.2 or greater and Python 2.6 or greater.
+This app requires Django 1.5 or greater and Python 2.6 or greater.
 
 
 Getting Help
@@ -52,7 +52,7 @@ Add edit links to admin inlines
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/object_edit_link_example.png
-   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#customizing-edit-link-text
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#customizing-inline-edit-links
 
 Link to reverse relations from from change forms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

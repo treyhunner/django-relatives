@@ -13,7 +13,14 @@ register = Library()
 
 @register.filter
 def contents_or_fk_link(field):
-    """Return field contents or link to related object if foreign key field"""
+    """
+    Return field contents or link to related object if foreign key field
+
+    Example Usage::
+
+        {% load relatives %}
+        {{ field|contents_or_fk_link }}
+    """
     contents = field.contents()
     field_name = field.field['field']
     obj = field.form.instance
@@ -37,8 +44,9 @@ def related_objects(obj):
     """
     Return list of objects related to the given model instance
 
-    Example::
+    Example Usage::
 
+        {% load relatives %}
         {% related_objects obj as related_objects %}
         {% for related_obj in related_objects %}
             <a href="{{ related_obj.url }}">{{ related_obj.plural_name }}</a>
