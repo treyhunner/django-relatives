@@ -52,7 +52,7 @@ Add edit links to admin inlines
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/object_edit_link_example.png
-   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#customizing-edit-link-text
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#customizing-inline-edit-links
 
 Link to reverse relations from from change forms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
