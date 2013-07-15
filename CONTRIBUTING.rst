@@ -31,4 +31,4 @@ First install tox::
 
 To run tox and generate a coverage report (in ``htmlcov`` directory)::
 
-    ./runtests.sh
+    make test
