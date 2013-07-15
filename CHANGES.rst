@@ -4,6 +4,11 @@ Changes
 Unreleased (tip)
 ------------------
 
+- Fix XSS vulnerability
+- Allow relatives/includes/fieldset.html template to be extended further
+- Improve documentation
+
+
 0.2.0 (2013-06-26)
 ------------------
 
