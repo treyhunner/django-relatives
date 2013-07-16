@@ -1,7 +1,7 @@
 Changes
 =======
 
-Unreleased (tip)
+0.3.0 (2013-07-16)
 ------------------
 
 - Fix XSS vulnerability
