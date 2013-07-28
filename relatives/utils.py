@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
-from django.utils.encoding import smart_text
+try:
+    from django.utils.encoding import smart_text
+except ImportError:
+    from django.utils.encoding import smart_unicode as smart_text
 from .compat import format_html
 from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
