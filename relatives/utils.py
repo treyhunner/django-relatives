@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.utils.encoding import smart_text
-from django.utils.html import format_html
+from .compat import format_html
 from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 
