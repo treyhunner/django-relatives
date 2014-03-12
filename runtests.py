@@ -2,6 +2,7 @@
 import sys
 from os.path import abspath, dirname
 
+import django
 from django.conf import settings
 
 
@@ -29,6 +30,8 @@ if not settings.configured:
 
 
 def runtests(*test_args):
+    if hasattr(django, 'setup'):
+        django.setup()
     if not test_args:
         test_args = ['tests']
     from django.test.simple import DjangoTestSuiteRunner
