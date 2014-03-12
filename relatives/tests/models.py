@@ -1,13 +1,17 @@
+from __future__ import unicode_literals
+
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Pirate(models.Model):
 
     """Pirates have no admin URL"""
 
     name = models.CharField(max_length=80)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -18,16 +22,18 @@ class Pet(models.Model):
     owner = models.ForeignKey(Pirate)
 
 
+@python_2_unicode_compatible
 class Ship(models.Model):
 
     """Ships have an admin URL and are linked to by sailors"""
 
     name = models.CharField(max_length=40)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Sailor(models.Model):
 
     """Sailors have an admin URL and sometimes link to ships"""
@@ -35,7 +41,7 @@ class Sailor(models.Model):
     name = models.CharField(max_length=80)
     ship = models.ForeignKey(Ship, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
