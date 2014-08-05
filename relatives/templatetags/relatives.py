@@ -4,8 +4,9 @@ from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
 from django.contrib.admin.util import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.contenttypes.models import ContentType
 
-from ..utils import get_admin_url
+from ..utils import get_admin_url, GenericObjects
 
 
 register = Library()
@@ -53,8 +54,10 @@ def related_objects(obj):
         {% endfor %}
     """
     object_list = []
+    print dir(obj)
     related_objects = (obj._meta.get_all_related_objects() +
-                       obj._meta.get_all_related_many_to_many_objects())
+                       obj._meta.get_all_related_many_to_many_objects() +
+                       GenericObjects(obj).get_generic_objects())
     for related in related_objects:
         try:
             url = reverse('admin:{0}_{1}_changelist'.format(

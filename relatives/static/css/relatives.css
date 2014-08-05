@@ -1,0 +1,20 @@
+#filter {
+    position: absolute;
+    right: 15px;
+    width: 190px;
+    min-width: 180px;
+    text-align: center;
+    margin: 0;
+}
+#filter ul {
+    padding: 15px 0;
+    margin: 0;
+}
+#filter ul li {
+    font-size: 16px;
+    line-height: 36px;
+    list-style-type: none;
+}
+form {
+    margin-right: 200px;
+}
