@@ -54,7 +54,6 @@ def related_objects(obj):
         {% endfor %}
     """
     object_list = []
-    print dir(obj)
     related_objects = (obj._meta.get_all_related_objects() +
                        obj._meta.get_all_related_many_to_many_objects() +
                        GenericObjects(obj).get_generic_objects())
