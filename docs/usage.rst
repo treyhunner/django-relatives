@@ -13,6 +13,14 @@ Install from `PyPI`_:
 .. _PyPI: https://pypi.python.org/pypi/django-relatives/
 
 
+Since relatives uses cache, you can set settings to change the defaults:
+
+.. code-block:: python
+
+    RELATIVES_CACHE_KEY = 'relatives_cache'
+    RELATIVES_CACHE_TIME = int(60*60*24)
+
+
 Edit links in inlines
 ---------------------
 

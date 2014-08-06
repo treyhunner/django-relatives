@@ -26,3 +26,5 @@ admin.site.register(models.Pet, PetAdmin)
 
 admin.site.register(models.Movie)
 admin.site.register(models.Actor)
+admin.site.register(models.Book)
+admin.site.register(models.Image)

@@ -6,7 +6,6 @@ from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.conf import settings
-import string
 
 
 def get_admin_url(obj):
@@ -57,41 +56,39 @@ object_link.__doc__ += "\n\nEquivalent to object_edit_link()(obj)"
 
 
 class RelatedObject(object):
-    '''Generates faked django RelatedObject
+    '''Generates fake django RelatedObject
     '''
 
     def __init__(self, field, ct_pk):
         self.field = field
-        self.field.name = self.generate_name(field, ct_pk)
-
-    @property
-    def model(self):
-        return self.field.model
-
-    @property
-    def name(self):
-        return string.join(
-                    [self.field.model._meta.app_label,
-                     self.field.model._meta.module_name], ':')
+        self.field.name = self.generate_field_name(field, ct_pk)
+        self.model = self.field.model
+        self.name = self.generate_name(field)
 
     @staticmethod
-    def generate_name(field, ct_pk):
-        return string.join(
-            map(str, [field.ct_field, '=', ct_pk, '&', field.fk_field]),
-            '')
+    def generate_name(field):
+        return ':'.join([field.model._meta.app_label,
+                        field.model._meta.module_name])
+
+    @staticmethod
+    def generate_field_name(field, ct_pk):
+        return ''.join(
+            map(str, [field.ct_field, '=', ct_pk, '&', field.fk_field]))
 
 
 class GenericObjects(object):
     '''
-    Search GenericForeignkeys over all models
+    Search GenericForeignKey over all models
     and returns related objects if has relations with given object.
     '''
 
     def __init__(self, _object):
         self.obj = _object
         self.ct_pk = ContentType.objects.get_for_model(_object).pk
-        self.cache_key = getattr(settings, 'RELATIVES_CACHE_KEY', 'relatives_cache')
-        self.cache_time = getattr(settings, 'RELATIVES_CACHE_TIME', int(60*60*24))
+        self.cache_key = getattr(settings, 'RELATIVES_CACHE_KEY',
+                                 'relatives_cache')
+        self.cache_time = getattr(settings, 'RELATIVES_CACHE_TIME',
+                                  int(60*60*24))
         self.generic_objects = []
 
     def get_generic_objects(self):
@@ -115,4 +112,6 @@ class GenericObjects(object):
                 vf = ct.model_class()._meta.virtual_fields
                 if vf:
                     self._generic_fields_cache += vf
-            cache.set(self.cache_key, self._generic_fields_cache, self.cache_time)
+            cache.set(self.cache_key,
+                      self._generic_fields_cache,
+                      self.cache_time)

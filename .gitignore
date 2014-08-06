@@ -2,8 +2,6 @@
 dist
 *.egg-info
 *.egg
-*.sublime-project
-*.sublime-workspace
 .coverage
 .tox
 htmlcov

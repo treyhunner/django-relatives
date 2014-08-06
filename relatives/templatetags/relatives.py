@@ -4,7 +4,6 @@ from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
 from django.contrib.admin.util import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.contenttypes.models import ContentType
 
 from ..utils import get_admin_url, GenericObjects
 
@@ -34,7 +33,7 @@ def contents_or_fk_link(field):
         if getattr(model_field, 'rel') and hasattr(related_obj, '_meta'):
             try:
                 return mark_safe('<a href="%s">%s</a>' %
-                                (get_admin_url(related_obj), contents))
+                                 (get_admin_url(related_obj), contents))
             except NoReverseMatch:
                 pass
         return contents

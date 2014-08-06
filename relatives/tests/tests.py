@@ -3,10 +3,11 @@ from django.test import TestCase
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 from relatives.utils import object_link, object_edit_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
-                     Something)
+                     Something, Book, Image)
 
 
 class ObjectEditLinkTest(TestCase):
@@ -126,3 +127,19 @@ class RelatedObjectsTagTest(TestCase):
         body = render_to_string('related_objects_m2m_test.html',
                                 {'obj': actor})
         self.assertEqual(body.strip(), '')
+
+    def test_generic_foreign_key_not(self):
+        book = Book.objects.create(name="Django")
+        body = render_to_string('related_objects_generic_test.html',
+                                {'obj': book})
+        self.assertEqual(body.strip(), '')
+
+    def test_generic_foreign_key_present(self):
+        book = Book.objects.create(name="Django")
+        Image.objects.create(content_object=book)
+        ct_pk = ContentType.objects.get_for_model(book).pk
+        exp = '<a href="/adm/tests/image/?ct={0}&amp;obj_id={1}">Images</a>'\
+            .format(ct_pk, book.pk)
+        body = render_to_string('related_objects_generic_test.html',
+                                {'obj': book})
+        self.assertEqual(body.strip(), exp)
