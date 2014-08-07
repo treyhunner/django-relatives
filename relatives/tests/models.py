@@ -90,3 +90,12 @@ class Image(models.Model):
     ct = models.ForeignKey(ContentType)
     obj_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('ct', 'obj_id')
+
+
+class Journal(models.Model):
+
+    """Journal have an admin URL and are linked to images via GenericForeignKey
+    also it have GenericRelation link to Images"""
+
+    name = models.CharField(max_length=10)
+    images = generic.GenericRelation(Image)

@@ -6,6 +6,7 @@ from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.conf import settings
+from django.contrib.contenttypes.generic import GenericForeignKey as GFK
 
 
 def get_admin_url(obj):
@@ -110,8 +111,8 @@ class GenericObjects(object):
             self._generic_fields_cache = []
             for ct in ContentType.objects.all():
                 vf = ct.model_class()._meta.virtual_fields
-                if vf:
-                    self._generic_fields_cache += vf
+                self._generic_fields_cache += [
+                    x for x in vf if isinstance(x, GFK)]
             cache.set(self.cache_key,
                       self._generic_fields_cache,
                       self.cache_time)

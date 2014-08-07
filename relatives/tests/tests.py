@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from relatives.utils import object_link, object_edit_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
-                     Something, Book, Image)
+                     Something, Book, Image, Journal)
 
 
 class ObjectEditLinkTest(TestCase):
@@ -142,4 +142,14 @@ class RelatedObjectsTagTest(TestCase):
             .format(ct_pk, book.pk)
         body = render_to_string('related_objects_generic_test.html',
                                 {'obj': book})
+        self.assertEqual(body.strip(), exp)
+
+    def test_generic_relation_and_gfk_present(self):
+        journal = Journal.objects.create(name="Django")
+        Image.objects.create(content_object=journal)
+        ct_pk = ContentType.objects.get_for_model(journal).pk
+        exp = '<a href="/adm/tests/image/?ct={0}&amp;obj_id={1}">Images</a>'\
+            .format(ct_pk, journal.pk)
+        body = render_to_string('related_objects_generic_test.html',
+                                {'obj': journal})
         self.assertEqual(body.strip(), exp)
