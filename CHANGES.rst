@@ -4,6 +4,8 @@ Changes
 Unreleased (tip)
 ------------------
 
+- Generic relations templatetag support implemented
+
 
 0.3.1 (2013-07-27)
 ------------------

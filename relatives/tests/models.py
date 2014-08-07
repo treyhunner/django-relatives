@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
 
 @python_2_unicode_compatible
@@ -72,3 +74,28 @@ class NotInAdmin(models.Model):
     """NotInAdmins do not have an admin URL and link to Somethings"""
 
     fk = models.ForeignKey(Something)
+
+
+class Book(models.Model):
+
+    """Book have an admin URL and are linked to images via GenericForeignKey"""
+
+    name = models.CharField(max_length=10)
+
+
+class Image(models.Model):
+
+    """Image have an admin URL and link to Book via GenericForeignKey"""
+
+    ct = models.ForeignKey(ContentType)
+    obj_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('ct', 'obj_id')
+
+
+class Journal(models.Model):
+
+    """Journal have an admin URL and are linked to images via GenericForeignKey
+    also it have GenericRelation link to Images"""
+
+    name = models.CharField(max_length=10)
+    images = generic.GenericRelation(Image)

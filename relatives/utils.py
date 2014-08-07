@@ -1,8 +1,12 @@
 from __future__ import unicode_literals
 from django.utils.encoding import smart_text
 from .compat import format_html
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
+from django.conf import settings
+from django.contrib.contenttypes.generic import GenericForeignKey as GFK
 
 
 def get_admin_url(obj):
@@ -50,3 +54,65 @@ def object_edit_link(edit_text=None, blank_text=None):
 object_link = object_edit_link()
 object_link.allow_tags = True
 object_link.__doc__ += "\n\nEquivalent to object_edit_link()(obj)"
+
+
+class RelatedObject(object):
+    '''Generates fake django RelatedObject
+    '''
+
+    def __init__(self, field, ct_pk):
+        self.field = field
+        self.field.name = self.generate_field_name(field, ct_pk)
+        self.model = self.field.model
+        self.name = self.generate_name(field)
+
+    @staticmethod
+    def generate_name(field):
+        return ':'.join([field.model._meta.app_label,
+                        field.model._meta.module_name])
+
+    @staticmethod
+    def generate_field_name(field, ct_pk):
+        return ''.join(
+            map(str, [field.ct_field, '=', ct_pk, '&', field.fk_field]))
+
+
+class GenericObjects(object):
+    '''
+    Search GenericForeignKey over all models
+    and returns related objects if has relations with given object.
+    '''
+
+    def __init__(self, _object):
+        self.obj = _object
+        self.ct_pk = ContentType.objects.get_for_model(_object).pk
+        self.cache_key = getattr(settings, 'RELATIVES_CACHE_KEY',
+                                 'relatives_cache')
+        self.cache_time = getattr(settings, 'RELATIVES_CACHE_TIME',
+                                  int(60*60*24))
+        self.generic_objects = []
+
+    def get_generic_objects(self):
+        try:
+            self._generic_fields_cache
+        except AttributeError:
+            self._fill_generic_fields_cache()
+        for generic_field in self._generic_fields_cache:
+            params = {generic_field.ct_field: self.ct_pk,
+                      generic_field.fk_field: self.obj.pk}
+            if generic_field.model.objects.filter(**params).exists():
+                generic_object = RelatedObject(generic_field, self.ct_pk)
+                self.generic_objects.append(generic_object)
+        return self.generic_objects
+
+    def _fill_generic_fields_cache(self):
+        self._generic_fields_cache = cache.get(self.cache_key)
+        if self._generic_fields_cache is None:
+            self._generic_fields_cache = []
+            for ct in ContentType.objects.all():
+                vf = ct.model_class()._meta.virtual_fields
+                self._generic_fields_cache += [
+                    x for x in vf if isinstance(x, GFK)]
+            cache.set(self.cache_key,
+                      self._generic_fields_cache,
+                      self.cache_time)

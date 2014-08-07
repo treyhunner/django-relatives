@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.admin.util import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
 
-from ..utils import get_admin_url
+from ..utils import get_admin_url, GenericObjects
 
 
 register = Library()
@@ -33,7 +33,7 @@ def contents_or_fk_link(field):
         if getattr(model_field, 'rel') and hasattr(related_obj, '_meta'):
             try:
                 return mark_safe('<a href="%s">%s</a>' %
-                                (get_admin_url(related_obj), contents))
+                                 (get_admin_url(related_obj), contents))
             except NoReverseMatch:
                 pass
         return contents
@@ -54,7 +54,8 @@ def related_objects(obj):
     """
     object_list = []
     related_objects = (obj._meta.get_all_related_objects() +
-                       obj._meta.get_all_related_many_to_many_objects())
+                       obj._meta.get_all_related_many_to_many_objects() +
+                       GenericObjects(obj).get_generic_objects())
     for related in related_objects:
         try:
             url = reverse('admin:{0}_{1}_changelist'.format(
