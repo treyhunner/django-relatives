@@ -33,13 +33,18 @@ if not settings.configured:
     )
 
 
-def runtests(*test_args):
+def runtests():
     if hasattr(django, 'setup'):
         django.setup()
-    if not test_args:
+    try:
+        from django.test.runner import DiscoverRunner
+        runner_class = DiscoverRunner
+        test_args = ['relatives.tests']
+    except ImportError:
+        from django.test.simple import DjangoTestSuiteRunner
+        runner_class = DjangoTestSuiteRunner
         test_args = ['tests']
-    from django.test.simple import DjangoTestSuiteRunner
-    failures = DjangoTestSuiteRunner(failfast=False).run_tests(test_args)
+    failures = runner_class(failfast=False).run_tests(test_args)
     sys.exit(failures)
 
 

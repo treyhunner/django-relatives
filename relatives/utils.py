@@ -11,7 +11,7 @@ from django.contrib.contenttypes.generic import GenericForeignKey as GFK
 
 def get_admin_url(obj):
     """Return admin URL for given object (raise NoReverseMatch on error)"""
-    options = obj._meta.app_label, obj._meta.module_name
+    options = obj._meta.app_label, obj._meta.model_name
     return reverse('admin:%s_%s_change' % options, args=[obj.pk])
 
 
@@ -69,7 +69,7 @@ class RelatedObject(object):
     @staticmethod
     def generate_name(field):
         return ':'.join([field.model._meta.app_label,
-                        field.model._meta.module_name])
+                        field.model._meta.model_name])
 
     @staticmethod
     def generate_field_name(field, ct_pk):
