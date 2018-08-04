@@ -30,6 +30,17 @@ if not settings.configured:
         ],
         ROOT_URLCONF='relatives.tests.urls',
         STATIC_URL='/static/',
+        TEMPLATES=[
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    "context_processors": [
+                        'django.contrib.auth.context_processors.auth'
+                    ]
+                }
+            },
+        ],
     )
 
 
