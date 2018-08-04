@@ -21,7 +21,7 @@ class Pet(models.Model):
 
     """Pet have an admin URL and link to Pirates"""
 
-    owner = models.ForeignKey(Pirate)
+    owner = models.ForeignKey(Pirate, null=True, on_delete=models.SET_NULL)
 
 
 @python_2_unicode_compatible
@@ -41,7 +41,7 @@ class Sailor(models.Model):
     """Sailors have an admin URL and sometimes link to ships"""
 
     name = models.CharField(max_length=80)
-    ship = models.ForeignKey(Ship, null=True)
+    ship = models.ForeignKey(Ship, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -73,7 +73,7 @@ class NotInAdmin(models.Model):
 
     """NotInAdmins do not have an admin URL and link to Somethings"""
 
-    fk = models.ForeignKey(Something)
+    fk = models.ForeignKey(Something, null=True, on_delete=models.SET_NULL)
 
 
 class Book(models.Model):
@@ -87,7 +87,7 @@ class Image(models.Model):
 
     """Image have an admin URL and link to Book via GenericForeignKey"""
 
-    ct = models.ForeignKey(ContentType)
+    ct = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     obj_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('ct', 'obj_id')
 
