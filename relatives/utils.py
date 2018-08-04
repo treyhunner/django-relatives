@@ -6,7 +6,7 @@ from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.conf import settings
-from django.contrib.contenttypes.generic import GenericForeignKey as GFK
+from django.contrib.contenttypes.fields import GenericForeignKey as GFK
 
 
 def get_admin_url(obj):

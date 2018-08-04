@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 
 @python_2_unicode_compatible
@@ -89,7 +89,7 @@ class Image(models.Model):
 
     ct = models.ForeignKey(ContentType)
     obj_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('ct', 'obj_id')
+    content_object = GenericForeignKey('ct', 'obj_id')
 
 
 class Journal(models.Model):
@@ -98,4 +98,4 @@ class Journal(models.Model):
     also it have GenericRelation link to Images"""
 
     name = models.CharField(max_length=10)
-    images = generic.GenericRelation(Image)
+    images = GenericRelation(Image)
