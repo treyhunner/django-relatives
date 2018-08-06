@@ -2,8 +2,7 @@ from __future__ import unicode_literals
 from django.utils.encoding import smart_text
 from .compat import format_html
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import NoReverseMatch
-from django.core.urlresolvers import reverse
+from django.urls import reverse, NoReverseMatch
 from django.core.cache import cache
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey as GFK
