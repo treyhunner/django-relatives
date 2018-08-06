@@ -24,8 +24,9 @@ if not settings.configured:
                 'ENGINE': 'django.db.backends.sqlite3',
             }
         },
-        MIDDLEWARE_CLASSES=[
+        MIDDLEWARE=[
             'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.common.CommonMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
         ],
         ROOT_URLCONF='relatives.tests.urls',
