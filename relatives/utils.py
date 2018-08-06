@@ -109,7 +109,7 @@ class GenericObjects(object):
         if self._generic_fields_cache is None:
             self._generic_fields_cache = []
             for ct in ContentType.objects.all():
-                vf = ct.model_class()._meta.virtual_fields
+                vf = ct.model_class()._meta.private_fields
                 self._generic_fields_cache += [
                     x for x in vf if isinstance(x, GFK)]
             cache.set(self.cache_key,
