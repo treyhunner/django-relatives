@@ -65,7 +65,7 @@ class TemplateFilterTest(TestCase):
         sailor = Sailor.objects.create(name="John Ford", ship=ship)
         response = self.client.get(reverse('admin:tests_sailor_change',
                                            args=[sailor.id]))
-        self.assertIn(b'<a href="/adm/tests/ship/1/">Star of India</a>',
+        self.assertIn(b'<a href="/adm/tests/ship/1/change/">Star of India</a>',
                       response.content)
 
     def test_no_foreign_key(self):
