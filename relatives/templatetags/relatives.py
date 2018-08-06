@@ -29,8 +29,8 @@ def contents_or_fk_link(field):
     except ObjectDoesNotExist:
         return contents
     else:
-        model_field, _, _ = lookup_field(field_name, obj, field.model_admin)[0]
-        if getattr(model_field, 'rel') and hasattr(related_obj, '_meta'):
+        model_field, _, _ = lookup_field(field_name, obj, field.model_admin)
+        if getattr(model_field, 'rel', None) and hasattr(related_obj, '_meta'):
             try:
                 return mark_safe('<a href="%s">%s</a>' %
                                  (get_admin_url(related_obj), contents))
