@@ -39,7 +39,7 @@ def contents_or_fk_link(field):
         return contents
 
 
-@register.assignment_tag
+@register.simple_tag
 def related_objects(obj):
     """
     Return list of objects related to the given model instance
