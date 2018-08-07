@@ -1,26 +1,24 @@
 {% extends "admin/change_form.html" %}
 {% load staticfiles relatives %}
 
-{% block content %}
-<div id="content-main">
+{% block field_sets %}
 {% related_objects adminform.form.instance as related_objects %}
-    <div class="module grp-module" id="filter">
-        {% block relations %}
-        <h2>Relations</h2>
-        <ul>
-            {% for related in related_objects %}
-            <li>
-                <a href="{{ related.url }}">{{ related.plural_name|capfirst }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endblock relations %}
-    </div>
-    {{ block.super }}
+<div class="module grp-module" id="filter">
+    {% block relations %}
+    <h2>Relations</h2>
+    <ul>
+        {% for related in related_objects %}
+        <li>
+            <a href="{{ related.url }}">{{ related.plural_name|capfirst }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endblock relations %}
 </div>
-{% endblock content %}
+{{ block.super }}
+{% endblock field_sets %}
 
-{% block stylesheets %}
+{% block extrastyle %}
     {{ block.super }}
     <link href="{% static 'css/relatives.css' %}" rel="stylesheet">
-{% endblock stylesheets %}
+{% endblock extrastyle %}
