@@ -54,13 +54,15 @@ def related_objects(obj):
     """
     object_list = []
     all_related_objects = [
-        f for f in obj._meta.get_fields()
-        if (f.one_to_many or f.one_to_one)
-        and f.auto_created and not f.concrete
+        field
+        for field in obj._meta.get_fields()
+        if (field.one_to_many or field.one_to_one) and
+        field.auto_created and not field.concrete
     ]
     all_related_m2m_objects = [
-        f for f in obj._meta.get_fields(include_hidden=True)
-        if f.many_to_many and f.auto_created
+        field
+        for field in obj._meta.get_fields(include_hidden=True)
+        if field.many_to_many and field.auto_created
     ]
     related_objects = (all_related_objects +
                        all_related_m2m_objects +

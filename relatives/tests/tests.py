@@ -14,8 +14,10 @@ class ObjectEditLinkTest(TestCase):
 
     def test_default(self):
         ship = Ship.objects.create(id=1, name="Star of India")
-        self.assertEqual(object_edit_link()(ship),
-                         '<a href="/adm/tests/ship/1/change/">Star of India</a>')
+        self.assertEqual(
+            object_edit_link()(ship),
+            '<a href="/adm/tests/ship/1/change/">Star of India</a>',
+        )
         pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
         self.assertEqual(object_edit_link()(pirate), "Lowell Taylor")
 
@@ -44,8 +46,10 @@ class ObjectLinkTest(TestCase):
 
     def test_with_primary_key(self):
         ship = Ship.objects.create(id=1, name="Star of India")
-        self.assertEqual(object_link(ship),
-                         '<a href="/adm/tests/ship/1/change/">Star of India</a>')
+        self.assertEqual(
+            object_link(ship),
+            '<a href="/adm/tests/ship/1/change/">Star of India</a>',
+        )
 
     def test_no_primary_key(self):
         ship = Ship(name="Star of India")

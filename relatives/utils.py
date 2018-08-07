@@ -88,7 +88,7 @@ class GenericObjects(object):
         self.cache_key = getattr(settings, 'RELATIVES_CACHE_KEY',
                                  'relatives_cache')
         self.cache_time = getattr(settings, 'RELATIVES_CACHE_TIME',
-                                  int(60*60*24))
+                                  60 * 60 * 24)
         self.generic_objects = []
 
     def get_generic_objects(self):
