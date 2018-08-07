@@ -1,10 +1,11 @@
 Changes
 =======
 
-Unreleased (tip)
+0.1.0 (2018-08-07)
 ------------------
 
 - Generic relations templatetag support implemented
+- Add support for Django 1.11 through 2.1
 
 
 0.3.1 (2013-07-27)
