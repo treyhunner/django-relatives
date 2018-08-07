@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.test import TestCase
 from django.template.loader import render_to_string
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
@@ -14,15 +14,17 @@ class ObjectEditLinkTest(TestCase):
 
     def test_default(self):
         ship = Ship.objects.create(id=1, name="Star of India")
-        self.assertEqual(object_edit_link()(ship),
-                         '<a href="/adm/tests/ship/1/">Star of India</a>')
+        self.assertEqual(
+            object_edit_link()(ship),
+            '<a href="/adm/tests/ship/1/change/">Star of India</a>',
+        )
         pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
         self.assertEqual(object_edit_link()(pirate), "Lowell Taylor")
 
     def test_custom_edit_text(self):
         ship = Ship.objects.create(id=1, name="Star of India")
         self.assertEqual(object_edit_link("Go There")(ship),
-                         '<a href="/adm/tests/ship/1/">Go There</a>')
+                         '<a href="/adm/tests/ship/1/change/">Go There</a>')
 
     def test_default_blank_text(self):
         pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
@@ -32,7 +34,7 @@ class ObjectEditLinkTest(TestCase):
         ship = Ship.objects.create(id=1, name="Star of India")
         pirate = Pirate.objects.create(id=1, name="Lowell Taylor")
         self.assertEqual(object_edit_link("Go There", "N/A")(ship),
-                         '<a href="/adm/tests/ship/1/">Go There</a>')
+                         '<a href="/adm/tests/ship/1/change/">Go There</a>')
         self.assertEqual(object_edit_link("Go There", "N/A")(pirate), "N/A")
 
 
@@ -44,8 +46,10 @@ class ObjectLinkTest(TestCase):
 
     def test_with_primary_key(self):
         ship = Ship.objects.create(id=1, name="Star of India")
-        self.assertEqual(object_link(ship),
-                         '<a href="/adm/tests/ship/1/">Star of India</a>')
+        self.assertEqual(
+            object_link(ship),
+            '<a href="/adm/tests/ship/1/change/">Star of India</a>',
+        )
 
     def test_no_primary_key(self):
         ship = Ship(name="Star of India")
@@ -65,7 +69,7 @@ class TemplateFilterTest(TestCase):
         sailor = Sailor.objects.create(name="John Ford", ship=ship)
         response = self.client.get(reverse('admin:tests_sailor_change',
                                            args=[sailor.id]))
-        self.assertIn(b'<a href="/adm/tests/ship/1/">Star of India</a>',
+        self.assertIn(b'<a href="/adm/tests/ship/1/change/">Star of India</a>',
                       response.content)
 
     def test_no_foreign_key(self):
@@ -90,12 +94,21 @@ class TemplateFilterTest(TestCase):
         sailor = Sailor.objects.create(name="John Ford")
         response = self.client.get(reverse('admin:tests_sailor_change',
                                            args=[sailor.id]))
-        self.assertIn(b'(None)', response.content)
+        self.assertIn(b'<p>-</p>', response.content)
+
+    def test_deleted_foreign_key(self):
+        self.login()
+        ship = Ship.objects.create(id=1, name="Star of India")
+        sailor = Sailor.objects.create(name="John Ford", ship=ship)
+        ship.delete()  # Sailor won't get deleted
+        response = self.client.get(reverse('admin:tests_sailor_change',
+                                           args=[sailor.id]))
+        self.assertIn(b'<p>-</p>', response.content)
 
     def test_add_form_for_non_nullable_fk(self):
         self.login()
         response = self.client.get(reverse('admin:tests_pet_add'))
-        self.assertIn(b'(None)', response.content)
+        self.assertIn(b'<p>-</p>', response.content)
 
 
 class RelatedObjectsTagTest(TestCase):

@@ -2,11 +2,10 @@ from __future__ import unicode_literals
 from django.utils.encoding import smart_text
 from .compat import format_html
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import NoReverseMatch
-from django.core.urlresolvers import reverse
+from django.urls import reverse, NoReverseMatch
 from django.core.cache import cache
 from django.conf import settings
-from django.contrib.contenttypes.generic import GenericForeignKey as GFK
+from django.contrib.contenttypes.fields import GenericForeignKey as GFK
 
 
 def get_admin_url(obj):
@@ -89,7 +88,7 @@ class GenericObjects(object):
         self.cache_key = getattr(settings, 'RELATIVES_CACHE_KEY',
                                  'relatives_cache')
         self.cache_time = getattr(settings, 'RELATIVES_CACHE_TIME',
-                                  int(60*60*24))
+                                  60 * 60 * 24)
         self.generic_objects = []
 
     def get_generic_objects(self):
@@ -110,7 +109,7 @@ class GenericObjects(object):
         if self._generic_fields_cache is None:
             self._generic_fields_cache = []
             for ct in ContentType.objects.all():
-                vf = ct.model_class()._meta.virtual_fields
+                vf = ct.model_class()._meta.private_fields
                 self._generic_fields_cache += [
                     x for x in vf if isinstance(x, GFK)]
             cache.set(self.cache_key,

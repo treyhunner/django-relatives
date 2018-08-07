@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import (
+    GenericForeignKey, GenericRelation
+)
 
 
 @python_2_unicode_compatible
@@ -21,7 +23,7 @@ class Pet(models.Model):
 
     """Pet have an admin URL and link to Pirates"""
 
-    owner = models.ForeignKey(Pirate)
+    owner = models.ForeignKey(Pirate, null=True, on_delete=models.SET_NULL)
 
 
 @python_2_unicode_compatible
@@ -41,7 +43,7 @@ class Sailor(models.Model):
     """Sailors have an admin URL and sometimes link to ships"""
 
     name = models.CharField(max_length=80)
-    ship = models.ForeignKey(Ship, null=True)
+    ship = models.ForeignKey(Ship, null=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name
@@ -73,7 +75,7 @@ class NotInAdmin(models.Model):
 
     """NotInAdmins do not have an admin URL and link to Somethings"""
 
-    fk = models.ForeignKey(Something)
+    fk = models.ForeignKey(Something, null=True, on_delete=models.SET_NULL)
 
 
 class Book(models.Model):
@@ -87,9 +89,9 @@ class Image(models.Model):
 
     """Image have an admin URL and link to Book via GenericForeignKey"""
 
-    ct = models.ForeignKey(ContentType)
+    ct = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     obj_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('ct', 'obj_id')
+    content_object = GenericForeignKey('ct', 'obj_id')
 
 
 class Journal(models.Model):
@@ -98,4 +100,4 @@ class Journal(models.Model):
     also it have GenericRelation link to Images"""
 
     name = models.CharField(max_length=10)
-    images = generic.GenericRelation(Image)
+    images = GenericRelation(Image)

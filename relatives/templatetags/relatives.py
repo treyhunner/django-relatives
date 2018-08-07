@@ -1,8 +1,8 @@
 from django.template import Library
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls import reverse, NoReverseMatch
 from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
-from django.contrib.admin.util import lookup_field
+from django.contrib.admin.utils import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
 
 from ..utils import get_admin_url, GenericObjects
@@ -29,8 +29,8 @@ def contents_or_fk_link(field):
     except ObjectDoesNotExist:
         return contents
     else:
-        model_field = lookup_field(field_name, obj, field.model_admin)[0]
-        if getattr(model_field, 'rel') and hasattr(related_obj, '_meta'):
+        model_field, _, _ = lookup_field(field_name, obj, field.model_admin)
+        if model_field.remote_field and hasattr(related_obj, '_meta'):
             try:
                 return mark_safe('<a href="%s">%s</a>' %
                                  (get_admin_url(related_obj), contents))
@@ -39,7 +39,7 @@ def contents_or_fk_link(field):
         return contents
 
 
-@register.assignment_tag
+@register.simple_tag
 def related_objects(obj):
     """
     Return list of objects related to the given model instance
@@ -53,17 +53,31 @@ def related_objects(obj):
         {% endfor %}
     """
     object_list = []
-    related_objects = (obj._meta.get_all_related_objects() +
-                       obj._meta.get_all_related_many_to_many_objects() +
+    all_related_objects = [
+        field
+        for field in obj._meta.get_fields()
+        if (field.one_to_many or field.one_to_one) and
+        field.auto_created and not field.concrete
+    ]
+    all_related_m2m_objects = [
+        field
+        for field in obj._meta.get_fields(include_hidden=True)
+        if field.many_to_many and field.auto_created
+    ]
+    related_objects = (all_related_objects +
+                       all_related_m2m_objects +
                        GenericObjects(obj).get_generic_objects())
     for related in related_objects:
         try:
+            to_model = getattr(related, 'related_model', related.model)
             url = reverse('admin:{0}_{1}_changelist'.format(
-                          *related.name.split(':')))
+                to_model._meta.app_label,
+                to_model._meta.model_name
+            ))
         except NoReverseMatch:
             continue
         object_list.append({
-            'plural_name': related.model._meta.verbose_name_plural,
+            'plural_name': to_model._meta.verbose_name_plural,
             'url': smart_text('%s?%s=%s' % (url, related.field.name, obj.pk)),
         })
     return object_list

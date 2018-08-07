@@ -24,12 +24,24 @@ if not settings.configured:
                 'ENGINE': 'django.db.backends.sqlite3',
             }
         },
-        MIDDLEWARE_CLASSES=[
+        MIDDLEWARE=[
             'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.common.CommonMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
         ],
         ROOT_URLCONF='relatives.tests.urls',
         STATIC_URL='/static/',
+        TEMPLATES=[
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    "context_processors": [
+                        'django.contrib.auth.context_processors.auth'
+                    ]
+                }
+            },
+        ],
     )
 
 
