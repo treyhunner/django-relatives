@@ -12,8 +12,8 @@ env:
   - DJANGO=Django==2.1
 
 install:
-  - pip install --use-mirrors $DJANGO
-  - pip install --use-mirrors coverage coveralls
+  - pip install $DJANGO
+  - pip install coverage coveralls
 
 script: coverage run setup.py test
 
