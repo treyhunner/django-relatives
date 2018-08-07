@@ -43,7 +43,7 @@ class Sailor(models.Model):
     """Sailors have an admin URL and sometimes link to ships"""
 
     name = models.CharField(max_length=80)
-    ship = models.ForeignKey(Ship, null=True, on_delete=models.CASCADE)
+    ship = models.ForeignKey(Ship, null=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name

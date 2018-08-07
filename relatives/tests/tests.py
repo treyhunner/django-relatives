@@ -96,6 +96,15 @@ class TemplateFilterTest(TestCase):
                                            args=[sailor.id]))
         self.assertIn(b'<p>-</p>', response.content)
 
+    def test_deleted_foreign_key(self):
+        self.login()
+        ship = Ship.objects.create(id=1, name="Star of India")
+        sailor = Sailor.objects.create(name="John Ford", ship=ship)
+        ship.delete()  # Sailor won't get deleted
+        response = self.client.get(reverse('admin:tests_sailor_change',
+                                           args=[sailor.id]))
+        self.assertIn(b'<p>-</p>', response.content)
+
     def test_add_form_for_non_nullable_fk(self):
         self.login()
         response = self.client.get(reverse('admin:tests_pet_add'))
