@@ -4,6 +4,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from django.core.cache import cache
 
 from relatives.utils import object_link, object_edit_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
@@ -166,3 +167,11 @@ class RelatedObjectsTagTest(TestCase):
         body = render_to_string('related_objects_generic_test.html',
                                 {'obj': journal})
         self.assertEqual(body.strip(), exp)
+
+    def test_with_removed_model(self):
+        cache.clear()
+        journal = Journal()
+        ContentType.objects.create(model='gone', app_label='gone')
+        body = render_to_string('related_objects_generic_test.html',
+                                {'obj': journal})
+        self.assertEqual(body.strip(), '')
