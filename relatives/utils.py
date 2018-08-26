@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse, NoReverseMatch
 from django.core.cache import cache
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey as GFK
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 def get_admin_url(obj):
@@ -106,12 +106,16 @@ class GenericObjects(object):
 
     def _fill_generic_fields_cache(self):
         self._generic_fields_cache = cache.get(self.cache_key)
-        if self._generic_fields_cache is None:
-            self._generic_fields_cache = []
-            for ct in ContentType.objects.all():
-                vf = ct.model_class()._meta.private_fields
-                self._generic_fields_cache += [
-                    x for x in vf if isinstance(x, GFK)]
-            cache.set(self.cache_key,
-                      self._generic_fields_cache,
-                      self.cache_time)
+        if self._generic_fields_cache is not None:
+            return
+        self._generic_fields_cache = []
+        for content_type in ContentType.objects.all():
+            model_class = content_type.model_class()
+            if not model_class:
+                continue  # Model for content type doesn't exist anymore
+            self._generic_fields_cache += [
+                field
+                for field in model_class._meta.private_fields
+                if isinstance(field, GenericForeignKey)
+            ]
+        cache.set(self.cache_key, self._generic_fields_cache, self.cache_time)
