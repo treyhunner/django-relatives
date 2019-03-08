@@ -24,6 +24,8 @@ def contents_or_fk_link(field):
     contents = field.contents()
     field_name = field.field['field']
     obj = field.form.instance
+    if not isinstance(field_name, str):
+        return contents
     try:
         related_obj = getattr(obj, field_name)
     except ObjectDoesNotExist:
