@@ -14,6 +14,7 @@ if not settings.configured:
         INSTALLED_APPS=(
             'django.contrib.contenttypes',
             'django.contrib.sessions',
+            'django.contrib.messages',
             'django.contrib.auth',
             'relatives',
             'relatives.tests',
@@ -28,6 +29,7 @@ if not settings.configured:
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.middleware.common.CommonMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
         ],
         ROOT_URLCONF='relatives.tests.urls',
         STATIC_URL='/static/',
@@ -37,7 +39,8 @@ if not settings.configured:
                 'APP_DIRS': True,
                 'OPTIONS': {
                     "context_processors": [
-                        'django.contrib.auth.context_processors.auth'
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
                     ]
                 }
             },
@@ -60,5 +63,15 @@ def runtests():
     sys.exit(failures)
 
 
+def run_management_command(arguments):
+    if hasattr(django, 'setup'):
+        django.setup()
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(arguments)
+
+
 if __name__ == "__main__":
-    runtests(*sys.argv[1:])
+    if sys.argv[1:]:
+        run_management_command(sys.argv)
+    else:
+        runtests()

@@ -1,14 +1,12 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import (
     GenericForeignKey, GenericRelation
 )
 
 
-@python_2_unicode_compatible
 class Pirate(models.Model):
 
     """Pirates have no admin URL"""
@@ -26,7 +24,6 @@ class Pet(models.Model):
     owner = models.ForeignKey(Pirate, null=True, on_delete=models.SET_NULL)
 
 
-@python_2_unicode_compatible
 class Ship(models.Model):
 
     """Ships have an admin URL and are linked to by sailors"""
@@ -37,13 +34,12 @@ class Ship(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Sailor(models.Model):
 
     """Sailors have an admin URL and sometimes link to ships"""
 
     name = models.CharField(max_length=80)
-    ship = models.ForeignKey(Ship, null=True, on_delete=models.DO_NOTHING)
+    ship = models.ForeignKey(Ship, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
@@ -89,8 +85,8 @@ class Image(models.Model):
 
     """Image have an admin URL and link to Book via GenericForeignKey"""
 
-    ct = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    obj_id = models.PositiveIntegerField()
+    ct = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    obj_id = models.PositiveIntegerField(null=True)
     content_object = GenericForeignKey('ct', 'obj_id')
 
 

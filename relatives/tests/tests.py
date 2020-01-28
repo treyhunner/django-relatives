@@ -111,6 +111,25 @@ class TemplateFilterTest(TestCase):
         response = self.client.get(reverse('admin:tests_pet_add'))
         self.assertIn(b'<p>-</p>', response.content)
 
+    def test_generic_foreign_key_present(self):
+        book = Book.objects.create(name="Django")
+        image = Image.objects.create(content_object=book)
+        self.login()
+        response = self.client.get(
+            reverse('admin:tests_image_change', args=[image.id])
+        )
+        self.assertIn(b'/adm/tests/book/%d' % book.id, response.content)
+        self.assertNotIn(b'<p>None</p>', response.content)
+
+    def test_generic_foreign_key_not_present(self):
+        image = Image.objects.create()
+        self.login()
+        response = self.client.get(
+            reverse('admin:tests_image_change', args=[image.id])
+        )
+        self.assertNotIn(b'/adm/tests/book/', response.content)
+        self.assertIn(b'<p>None</p>', response.content)
+
 
 class RelatedObjectsTagTest(TestCase):
     def test_foreign_keys(self):

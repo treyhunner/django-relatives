@@ -27,7 +27,7 @@ the tests against your code::
 Please use tox to test the code against supported Python and Django versions.
 First install tox::
 
-    pip install tox
+    pip install coverage tox
 
 To run tox and generate a coverage report (in ``htmlcov`` directory)::
 
