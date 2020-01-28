@@ -1,7 +1,14 @@
 Changes
 =======
 
-0.1.0 (2018-08-07)
+1.1.0 (2020-01-28)
+------------------
+
+- Fix generic foreign key links on change forms
+- Add support for Django 2.2 and Django 3.0
+- Drop support for Python 2
+
+1.0.0 (2018-08-07)
 ------------------
 
 - Generic relations templatetag support implemented
