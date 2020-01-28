@@ -85,8 +85,8 @@ class Image(models.Model):
 
     """Image have an admin URL and link to Book via GenericForeignKey"""
 
-    ct = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    obj_id = models.PositiveIntegerField()
+    ct = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    obj_id = models.PositiveIntegerField(null=True)
     content_object = GenericForeignKey('ct', 'obj_id')
 
 

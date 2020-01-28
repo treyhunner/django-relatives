@@ -32,7 +32,8 @@ def contents_or_fk_link(field):
         return contents
     else:
         model_field, _, _ = lookup_field(field_name, obj, field.model_admin)
-        if model_field.remote_field and hasattr(related_obj, '_meta'):
+        if ((model_field is None or model_field.remote_field)
+                and hasattr(related_obj, '_meta')):
             try:
                 return mark_safe('<a href="%s">%s</a>' %
                                  (get_admin_url(related_obj), contents))
