@@ -63,5 +63,15 @@ def runtests():
     sys.exit(failures)
 
 
+def run_management_command(arguments):
+    if hasattr(django, 'setup'):
+        django.setup()
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(arguments)
+
+
 if __name__ == "__main__":
-    runtests(*sys.argv[1:])
+    if sys.argv[1:]:
+        run_management_command(sys.argv)
+    else:
+        runtests()
