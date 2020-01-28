@@ -58,17 +58,17 @@ def related_objects(obj):
     all_related_objects = [
         field
         for field in obj._meta.get_fields()
-        if (field.one_to_many or field.one_to_one) and
-        field.auto_created and not field.concrete
+        if (field.one_to_many or field.one_to_one)
+        and field.auto_created and not field.concrete
     ]
     all_related_m2m_objects = [
         field
         for field in obj._meta.get_fields(include_hidden=True)
         if field.many_to_many and field.auto_created
     ]
-    related_objects = (all_related_objects +
-                       all_related_m2m_objects +
-                       GenericObjects(obj).get_generic_objects())
+    related_objects = (all_related_objects
+                       + all_related_m2m_objects
+                       + GenericObjects(obj).get_generic_objects())
     for related in related_objects:
         try:
             to_model = getattr(related, 'related_model', related.model)
