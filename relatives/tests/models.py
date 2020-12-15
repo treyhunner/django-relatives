@@ -74,6 +74,17 @@ class NotInAdmin(models.Model):
     fk = models.ForeignKey(Something, null=True, on_delete=models.SET_NULL)
 
 
+class Shape(models.Model):
+
+    """Shapes have a name and a lowercase name property."""
+
+    name = models.CharField(max_length=10)
+
+    @property
+    def lower_name(self):
+        return self.name.lower()
+
+
 class Book(models.Model):
 
     """Book have an admin URL and are linked to images via GenericForeignKey"""

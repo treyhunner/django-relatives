@@ -28,7 +28,7 @@ def contents_or_fk_link(field):
         return contents
     try:
         related_obj = getattr(obj, field_name)
-    except ObjectDoesNotExist:
+    except (AttributeError, ObjectDoesNotExist):
         return contents
     else:
         model_field, _, _ = lookup_field(field_name, obj, field.model_admin)

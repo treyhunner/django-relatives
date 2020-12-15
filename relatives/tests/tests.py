@@ -8,7 +8,7 @@ from django.core.cache import cache
 
 from relatives.utils import object_link, object_edit_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
-                     Something, Book, Image, Journal)
+                     Shape, Something, Book, Image, Journal)
 
 
 class ObjectEditLinkTest(TestCase):
@@ -72,6 +72,15 @@ class TemplateFilterTest(TestCase):
                                            args=[sailor.id]))
         self.assertIn(b'<a href="/adm/tests/ship/1/change/">Star of India</a>',
                       response.content)
+
+    def test_property_and_modeladmin_method(self):
+        self.login()
+        circle = Shape.objects.create(id=1, name="Circle")
+        response = self.client.get(reverse('admin:tests_shape_change',
+                                           args=[circle.id]))
+        self.assertIn(b'<p>Circle</p>', response.content)
+        self.assertIn(b'<p>circle</p>', response.content)
+        self.assertIn(b'<p>CIRCLE</p>', response.content)
 
     def test_no_foreign_key(self):
         self.login()

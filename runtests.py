@@ -22,6 +22,7 @@ if not settings.configured:
         ),
         DATABASES={
             'default': {
+                'NAME': ':memory:',
                 'ENGINE': 'django.db.backends.sqlite3',
             }
         },

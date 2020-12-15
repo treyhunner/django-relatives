@@ -3,6 +3,16 @@ from django.contrib import admin
 from . import models
 
 
+class ShapeAdmin(admin.ModelAdmin):
+    readonly_fields = ['name', 'lower_name', 'upper_name']
+
+    def upper_name(self, obj):
+        return obj.name.upper()
+
+
+admin.site.register(models.Shape, ShapeAdmin)
+
+
 class ShipAdmin(admin.ModelAdmin):
     readonly_fields = ['name']
 
