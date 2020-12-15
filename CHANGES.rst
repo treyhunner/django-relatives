@@ -1,6 +1,11 @@
 Changes
 =======
 
+1.2.0 (2020-12-15)
+------------------
+
+- Fix ModelAdmin methods used in read-only fields
+
 1.1.0 (2020-01-28)
 ------------------
 
