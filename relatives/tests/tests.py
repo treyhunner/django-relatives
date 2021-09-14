@@ -127,8 +127,9 @@ class TemplateFilterTest(TestCase):
         response = self.client.get(
             reverse('admin:tests_image_change', args=[image.id])
         )
-        self.assertIn(b'/adm/tests/book/%d' % book.id, response.content)
-        self.assertNotIn(b'<p>None</p>', response.content)
+        self.assertIn(f'/adm/tests/book/{book.id}', response.rendered_content)
+        self.assertIn(f'Book object ({book.id})', response.rendered_content)
+        self.assertNotIn('<p>None</p>', response.rendered_content)
 
     def test_generic_foreign_key_not_present(self):
         image = Image.objects.create()
@@ -136,8 +137,8 @@ class TemplateFilterTest(TestCase):
         response = self.client.get(
             reverse('admin:tests_image_change', args=[image.id])
         )
-        self.assertNotIn(b'/adm/tests/book/', response.content)
-        self.assertIn(b'<p>None</p>', response.content)
+        self.assertIn('<p>None</p>', response.rendered_content)
+        self.assertNotIn('Book object', response.rendered_content)
 
 
 class RelatedObjectsTagTest(TestCase):
