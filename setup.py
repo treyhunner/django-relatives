@@ -16,8 +16,8 @@ setup(
     )),
     packages=find_packages(),
     include_package_data=True,
-    install_requires=['Django >= 1.4.2'],
-    tests_require=['Django >= 1.4.2'],
+    install_requires=['Django >= 1.11'],
+    tests_require=['Django >= 1.11'],
     test_suite='runtests.runtests',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
