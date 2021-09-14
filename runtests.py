@@ -33,7 +33,9 @@ if not settings.configured:
             'django.contrib.messages.middleware.MessageMiddleware',
         ],
         ROOT_URLCONF='relatives.tests.urls',
+        SECRET_KEY='secret',
         STATIC_URL='/static/',
+        DEFAULT_AUTO_FIELD='django.db.models.BigAutoField',
         TEMPLATES=[
             {
                 'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -42,6 +44,7 @@ if not settings.configured:
                     "context_processors": [
                         'django.contrib.auth.context_processors.auth',
                         'django.contrib.messages.context_processors.messages',
+                        'django.template.context_processors.request',
                     ]
                 }
             },
