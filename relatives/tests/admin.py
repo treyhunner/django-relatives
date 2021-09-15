@@ -14,6 +14,7 @@ admin.site.register(models.Shape, ShapeAdmin)
 
 
 class ShipAdmin(admin.ModelAdmin):
+    change_form_template = 'relatives/change_form.html'
     readonly_fields = ['name']
 
 
