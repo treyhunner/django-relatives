@@ -108,3 +108,27 @@ class Journal(models.Model):
 
     name = models.CharField(max_length=10)
     images = GenericRelation(Image)
+
+
+class Eater(models.Model):
+
+    """Eaters have an admin URL and Meal links to them in two ways."""
+
+    name = models.CharField(max_length=10)
+
+
+class Meal(models.Model):
+
+    """Meals link to Eaters twice."""
+
+    name = models.CharField(max_length=10)
+    prepared = models.ForeignKey(
+        Eater,
+        related_name="meals_prepared",
+        on_delete=models.CASCADE,
+    )
+    reviewed = models.ForeignKey(
+        Eater,
+        related_name="meals_reviewed",
+        on_delete=models.CASCADE,
+    )

@@ -1,5 +1,6 @@
-{% load relatives %}
+{% load relatives %}{% spaceless %}
 {% related_objects obj as related_objects %}
 {% for related in related_objects %}
     <a href="{{ related.url }}">{{ related.plural_name|capfirst }}</a>
 {% endfor %}
+{% endspaceless %}

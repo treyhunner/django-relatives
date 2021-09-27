@@ -79,8 +79,12 @@ def related_objects(obj):
             ))
         except NoReverseMatch:
             continue
+        if getattr(related, 'related_name', None):
+            plural_name = related.related_name.replace("_", " ")
+        else:
+            plural_name = to_model._meta.verbose_name_plural
         object_list.append({
-            'plural_name': to_model._meta.verbose_name_plural,
+            'plural_name': plural_name,
             'url': smart_text('%s?%s=%s' % (url, related.field.name, obj.pk)),
         })
     return object_list

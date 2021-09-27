@@ -8,7 +8,7 @@ from django.core.cache import cache
 
 from relatives.utils import object_link, object_edit_link
 from .models import (Pirate, Pet, Ship, Sailor, Movie, Actor, NotInAdmin,
-                     Shape, Something, Book, Image, Journal)
+                     Shape, Something, Book, Image, Journal, Eater)
 
 
 class ObjectEditLinkTest(TestCase):
@@ -147,6 +147,16 @@ class RelatedObjectsTagTest(TestCase):
         body = render_to_string('related_objects_fk_test.html', {'obj': ship})
         self.assertEqual(body.strip(),
                          '<a href="/adm/tests/sailor/?ship=1">Sailors</a>')
+
+    def test_two_foreign_keys(self):
+        eater = Eater.objects.create(id=1, name="Cheryl")
+        body = render_to_string('related_objects_fk_test.html', {'obj': eater})
+        self.assertEqual(
+            body.strip(),
+            '<a href="/adm/tests/meal/?prepared=1">Meals prepared</a>'
+            '<a href="/adm/tests/meal/?reviewed=1">Meals reviewed</a>',
+        )
+
 
     def test_no_admin_url(self):
         thing = Something.objects.create()
