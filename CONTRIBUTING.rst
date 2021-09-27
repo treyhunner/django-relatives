@@ -16,6 +16,17 @@ When creating a pull request, try to:
 .. _CHANGES: CHANGES.rst
 .. _README: README.rst
 
+
+Adding migrations
+-----------------
+
+When you add new models or make changes to models, you'll need to make migrations before the tests will run.
+
+To make migrations you can run::
+
+    python runtests.py makemigrations
+
+
 Testing
 -------
 
