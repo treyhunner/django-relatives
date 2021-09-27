@@ -1,6 +1,18 @@
 Changes
 =======
 
+Unreleased
+----------
+
+- Use related_name (if present) when linking to reverse relations
+
+1.2.2 (2021-09-15)
+------------------
+
+- Add support for Django 3.1 and 3.2
+- Drop support for Python 3.5
+- Drop support for Django 1.11
+
 1.2.0 (2020-12-15)
 ------------------
 
