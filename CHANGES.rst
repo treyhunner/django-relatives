@@ -1,10 +1,11 @@
 Changes
 =======
 
-Unreleased
-----------
+1.3.0
+-----
 
 - Use related_name (if present) when linking to reverse relations
+- Update admin URL filters to be consistent with Django's defaults
 
 1.2.2 (2021-09-15)
 ------------------
