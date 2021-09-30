@@ -146,17 +146,18 @@ class RelatedObjectsTagTest(TestCase):
         ship = Ship.objects.create(id=1, name="Star of India")
         body = render_to_string('related_objects_fk_test.html', {'obj': ship})
         self.assertEqual(body.strip(),
-                         '<a href="/adm/tests/sailor/?ship=1">Sailors</a>')
+                         '<a href="/adm/tests/sailor/?ship_id__exact=1">Sailors</a>')
 
     def test_two_foreign_keys(self):
         eater = Eater.objects.create(id=1, name="Cheryl")
         body = render_to_string('related_objects_fk_test.html', {'obj': eater})
         self.assertEqual(
             body.strip(),
-            '<a href="/adm/tests/meal/?prepared=1">Meals prepared</a>'
-            '<a href="/adm/tests/meal/?reviewed=1">Meals reviewed</a>',
+            '<a href="/adm/tests/meal/?prepared_id__exact=1">'
+            'Meals prepared</a>'
+            '<a href="/adm/tests/meal/?reviewed_id__exact=1">'
+            'Meals reviewed</a>',
         )
-
 
     def test_no_admin_url(self):
         thing = Something.objects.create()
@@ -170,8 +171,10 @@ class RelatedObjectsTagTest(TestCase):
         actor.movies.add(movie)
         body = render_to_string('related_objects_m2m_test.html',
                                 {'obj': movie})
-        self.assertEqual(body.strip(),
-                         '<a href="/adm/tests/actor/?movies=1">Actors</a>')
+        self.assertEqual(
+            body.strip(),
+            '<a href="/adm/tests/actor/?movies__id__exact=1">Actors</a>',
+        )
 
     def test_reverse_many_to_many(self):
         movie = Movie.objects.create(id=1, name="Yojimbo")
@@ -191,21 +194,29 @@ class RelatedObjectsTagTest(TestCase):
         book = Book.objects.create(name="Django")
         Image.objects.create(content_object=book)
         ct_pk = ContentType.objects.get_for_model(book).pk
-        exp = '<a href="/adm/tests/image/?ct={0}&amp;obj_id={1}">Images</a>'\
-            .format(ct_pk, book.pk)
-        body = render_to_string('related_objects_generic_test.html',
-                                {'obj': book})
-        self.assertEqual(body.strip(), exp)
+        expected = (
+            '<a href="/adm/tests/image/'
+            f'?ct={ct_pk}&amp;obj_id__exact={book.pk}">Images</a>'
+        )
+        body = render_to_string(
+            'related_objects_generic_test.html',
+            {'obj': book},
+        )
+        self.assertEqual(body.strip(), expected)
 
     def test_generic_relation_and_gfk_present(self):
         journal = Journal.objects.create(name="Django")
         Image.objects.create(content_object=journal)
         ct_pk = ContentType.objects.get_for_model(journal).pk
-        exp = '<a href="/adm/tests/image/?ct={0}&amp;obj_id={1}">Images</a>'\
-            .format(ct_pk, journal.pk)
-        body = render_to_string('related_objects_generic_test.html',
-                                {'obj': journal})
-        self.assertEqual(body.strip(), exp)
+        expected = (
+            '<a href="/adm/tests/image/'
+            f'?ct={ct_pk}&amp;obj_id__exact={journal.pk}">Images</a>'
+        )
+        body = render_to_string(
+            'related_objects_generic_test.html',
+            {'obj': journal},
+        )
+        self.assertEqual(body.strip(), expected)
 
     def test_with_removed_model(self):
         cache.clear()

@@ -83,8 +83,14 @@ def related_objects(obj):
             plural_name = related.related_name.replace("_", " ")
         else:
             plural_name = to_model._meta.verbose_name_plural
+        if hasattr(related.field, 'attname'):
+            field = related.field.attname
+            if hasattr(related.field, 'm2m_reverse_target_field_name'):
+                field += "__" + related.field.m2m_reverse_target_field_name()
+        else:
+            field = related.field.name
         object_list.append({
             'plural_name': plural_name,
-            'url': smart_text('%s?%s=%s' % (url, related.field.name, obj.pk)),
+            'url': smart_text(f"{url}?{field}__exact={obj.pk}"),
         })
     return object_list
