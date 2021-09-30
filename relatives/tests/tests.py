@@ -146,16 +146,16 @@ class RelatedObjectsTagTest(TestCase):
         ship = Ship.objects.create(id=1, name="Star of India")
         body = render_to_string('related_objects_fk_test.html', {'obj': ship})
         self.assertEqual(body.strip(),
-                         '<a href="/adm/tests/sailor/?ship_id__exact=1">Sailors</a>')
+                         '<a href="/adm/tests/sailor/?ship__id__exact=1">Sailors</a>')
 
     def test_two_foreign_keys(self):
         eater = Eater.objects.create(id=1, name="Cheryl")
         body = render_to_string('related_objects_fk_test.html', {'obj': eater})
         self.assertEqual(
             body.strip(),
-            '<a href="/adm/tests/meal/?prepared_id__exact=1">'
+            '<a href="/adm/tests/meal/?prepared__id__exact=1">'
             'Meals prepared</a>'
-            '<a href="/adm/tests/meal/?reviewed_id__exact=1">'
+            '<a href="/adm/tests/meal/?reviewed__id__exact=1">'
             'Meals reviewed</a>',
         )
 
