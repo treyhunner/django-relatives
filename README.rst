@@ -10,11 +10,11 @@ django-relatives
    :target: https://coveralls.io/r/treyhunner/django-relatives
    :alt: Coverage Status
 
-.. image:: https://pypip.in/v/django-relatives/badge.png
+.. image:: https://img.shields.io/pypi/v/django-relatives.svg
    :target: https://crate.io/packages/django-relatives
    :alt: Latest Version
 
-.. image:: https://pypip.in/d/django-relatives/badge.png
+.. image:: https://img.shields.io/pypi/dm/django-relatives.svg
    :target: https://crate.io/packages/django-relatives
    :alt: Download Count
 
