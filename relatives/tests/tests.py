@@ -227,3 +227,20 @@ class RelatedObjectsTagTest(TestCase):
         body = render_to_string('related_objects_generic_test.html',
                                 {'obj': journal})
         self.assertEqual(body.strip(), '')
+
+
+class RelativesAdminTests(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_superuser('u', 'u@example.com', 'pass')
+
+    def login(self):
+        self.client.login(username=self.user.username, password='pass')
+
+    def test_foreign_key_in_change_list(self):
+        self.login()
+        ship = Ship.objects.create(id=1, name="Star of India")
+        Sailor.objects.create(name="John Ford", ship=ship)
+        response = self.client.get(reverse('admin:tests_sailor_changelist'))
+        self.assertIn(b'<a href="/adm/tests/ship/1/change/">Star of India</a>',
+                      response.content)

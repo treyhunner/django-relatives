@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import (
@@ -40,6 +38,10 @@ class Sailor(models.Model):
 
     name = models.CharField(max_length=80)
     ship = models.ForeignKey(Ship, null=True, on_delete=models.SET_NULL)
+
+    @property
+    def ship_name(self):
+        self.ship.name
 
     def __str__(self):
         return self.name

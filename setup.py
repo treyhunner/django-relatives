@@ -1,11 +1,10 @@
 from pathlib import Path
 from setuptools import setup, find_packages
-import relatives
 
 
 setup(
     name="django-relatives",
-    version=relatives.__version__,
+    version='1.3.0.a3',
     author="Trey Hunner",
     author_email="trey@treyhunner.com",
     url="https://github.com/treyhunner/django-relatives",

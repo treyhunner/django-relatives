@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .. import RelativesAdmin
 from . import models
 
 
@@ -21,8 +22,9 @@ class ShipAdmin(admin.ModelAdmin):
 admin.site.register(models.Ship, ShipAdmin)
 
 
-class SailorAdmin(admin.ModelAdmin):
+class SailorAdmin(RelativesAdmin):
     readonly_fields = ['ship']
+    list_display = ["name", "ship", "ship_name"]
 
 
 admin.site.register(models.Sailor, SailorAdmin)

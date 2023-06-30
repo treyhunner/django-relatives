@@ -5,7 +5,8 @@ from django.utils.safestring import mark_safe
 from django.contrib.admin.utils import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
 
-from ..utils import get_admin_url, GenericObjects
+from ..template_helpers import GenericObjects
+from ..utils import get_admin_url
 
 
 register = Library()
