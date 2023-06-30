@@ -1,8 +1,7 @@
-from __future__ import unicode_literals
-from django.utils.encoding import smart_text
-from .compat import format_html
+from django.utils.encoding import smart_str
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse, NoReverseMatch
+from django.utils.html import format_html
 from django.core.cache import cache
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -31,7 +30,7 @@ def object_edit_link(edit_text=None, blank_text=None):
 
     def object_link(obj):
         "Return admin link to given object or blank text if no link"
-        link_text = smart_text(obj) if edit_text is None else edit_text
+        link_text = smart_str(obj) if edit_text is None else edit_text
         try:
             if obj.pk:
                 return format_html('<a href="{0}">{1}</a>', get_admin_url(obj),

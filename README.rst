@@ -20,7 +20,7 @@ django-relatives
 
 Utilities for linking to related objects in Django admin
 
-This app requires Django 2.2 or greater and Python 3.6 or greater.
+This app requires Django 3.2 or greater and Python 3.8 or greater.
 
 
 Getting Help
