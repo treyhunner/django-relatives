@@ -33,7 +33,7 @@ Testing
 Please add tests for your code and ensure existing tests don't break.  To run
 the tests against your code::
 
-    python setup.py test
+    python runtests.py
 
 Please use tox to test the code against supported Python and Django versions.
 First install tox::

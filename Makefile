@@ -1,7 +1,6 @@
 all: init docs test
 
 init:
-	python setup.py develop
 	pip install tox coverage Sphinx twine
 
 test:
@@ -10,7 +9,7 @@ test:
 	coverage html
 
 fast_test:
-	coverage run setup.py test
+	coverage run runtests.py
 	coverage report
 	coverage html
 
