@@ -1,0 +1,36 @@
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
+
+[project]
+name = "django-relatives"
+version = "1.3.0a3"
+description = "Utilities for linking to related objects in Django admin"
+authors = [{name = "Trey Hunner", email = "trey@treyhunner.com"}]
+license = "MIT"
+readme = "README.rst"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Framework :: Django"
+]
+requires-python = ">=3.8"
+dependencies = [
+    "Django>=3.2",
+]
+
+[tool.pdm.scripts]
+test = "python runtests.py"
+
+[project.urls]
+documentation = "https://django-relatives.readthedocs.io"
+repository = "https://github.com/treyhunner/django-relatives"
+issue-tracker = "https://github.com/treyhunner/django-relatives/issues"
+changelog = "https://github.com/treyhunner/django-relatives/blob/main/CHANGES.rst"

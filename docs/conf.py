@@ -11,6 +11,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+from importlib.metadata import version, PackageNotFoundError
 import re
 import os
 import sys
@@ -53,8 +54,7 @@ copyright = u'2013, Trey Hunner'
 parent_dir = os.path.dirname(os.path.dirname(__file__))
 
 def get_version():
-    with open(os.path.join(parent_dir, 'relatives', '__init__.py')) as f:
-        return re.search(r'''__version__.*([\d.]+)''', f.read()).group(1)
+    return version("django-relatives")
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

@@ -1,7 +1,0 @@
-include *.py
-include *.rst
-include LICENSE
-recursive-include docs *.rst
-recursive-include docs *.png
-recursive-include relatives *.html
-recursive-include relatives *.css

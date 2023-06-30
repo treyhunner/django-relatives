@@ -1,11 +1,12 @@
 from django.template import Library
 from django.urls import reverse, NoReverseMatch
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.utils.safestring import mark_safe
 from django.contrib.admin.utils import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
 
-from ..utils import get_admin_url, GenericObjects
+from ..template_helpers import GenericObjects
+from ..utils import get_admin_url
 
 
 register = Library()
@@ -90,6 +91,6 @@ def related_objects(obj):
             field += "__" + "".join(related.target_field.name)
         object_list.append({
             'plural_name': plural_name,
-            'url': smart_text(f"{url}?{field}__exact={obj.pk}"),
+            'url': smart_str(f"{url}?{field}__exact={obj.pk}"),
         })
     return object_list
