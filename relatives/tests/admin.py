@@ -5,7 +5,7 @@ from . import models
 
 
 class ShapeAdmin(admin.ModelAdmin):
-    readonly_fields = ['name', 'lower_name', 'upper_name']
+    readonly_fields = ["name", "lower_name", "upper_name"]
 
     def upper_name(self, obj):
         return obj.name.upper()
@@ -15,15 +15,15 @@ admin.site.register(models.Shape, ShapeAdmin)
 
 
 class ShipAdmin(admin.ModelAdmin):
-    change_form_template = 'relatives/change_form.html'
-    readonly_fields = ['name']
+    change_form_template = "relatives/change_form.html"
+    readonly_fields = ["name"]
 
 
 admin.site.register(models.Ship, ShipAdmin)
 
 
 class SailorAdmin(RelativesAdmin):
-    readonly_fields = ['ship']
+    readonly_fields = ["ship"]
     list_display = ["name", "ship", "ship_name"]
 
 
@@ -31,14 +31,14 @@ admin.site.register(models.Sailor, SailorAdmin)
 
 
 class PetAdmin(admin.ModelAdmin):
-    readonly_fields = ['owner']
+    readonly_fields = ["owner"]
 
 
 admin.site.register(models.Pet, PetAdmin)
 
 
 class ImageAdmin(admin.ModelAdmin):
-    readonly_fields = ['content_object']
+    readonly_fields = ["content_object"]
 
 
 admin.site.register(models.Image, ImageAdmin)
