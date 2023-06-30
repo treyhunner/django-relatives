@@ -32,8 +32,7 @@ class RelativesMixin:
 
     def get_list_display(self, request):
         return [
-            related_link_or_attribute(self.model, attr)
-            for attr in self.list_display
+            related_link_or_attribute(self.model, attr) for attr in self.list_display
         ]
 
 

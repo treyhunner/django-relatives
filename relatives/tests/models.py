@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import (
-    GenericForeignKey, GenericRelation
-)
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 
 class Pirate(models.Model):
@@ -52,7 +50,7 @@ class Actor(models.Model):
     """Actors have an admin URL and a many-to-many relationship with movies"""
 
     name = models.CharField(max_length=80)
-    movies = models.ManyToManyField('Movie', related_name='actors')
+    movies = models.ManyToManyField("Movie", related_name="actors")
 
 
 class Movie(models.Model):
@@ -100,7 +98,7 @@ class Image(models.Model):
 
     ct = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     obj_id = models.PositiveIntegerField(null=True)
-    content_object = GenericForeignKey('ct', 'obj_id')
+    content_object = GenericForeignKey("ct", "obj_id")
 
 
 class Journal(models.Model):

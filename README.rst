@@ -2,21 +2,29 @@
 django-relatives
 ================
 
-.. image:: https://travis-ci.org/treyhunner/django-relatives.png?branch=master
-   :target: https://travis-ci.org/treyhunner/django-relatives
-   :alt: Test Status
+.. image:: https://img.shields.io/pypi/v/django-relatives.svg
+   :target: https://pypi.org/project/django-relatives/
+   :alt: PyPI
 
-.. image:: https://coveralls.io/repos/treyhunner/django-relatives/badge.png?branch=master
-   :target: https://coveralls.io/r/treyhunner/django-relatives
-   :alt: Coverage Status
+.. image:: https://img.shields.io/pypi/pyversions/django-relatives
+   :target: https://pypi.org/project/django-relatives
+   :alt: Python Version
 
-.. image:: https://pypip.in/v/django-relatives/badge.png
-   :target: https://crate.io/packages/django-relatives
-   :alt: Latest Version
+.. image:: https://img.shields.io/pypi/djversions/django-relatives
+   :target: https://pypi.org/project/django-relatives
+   :alt: Django Version
 
-.. image:: https://pypip.in/d/django-relatives/badge.png
-   :target: https://crate.io/packages/django-relatives
-   :alt: Download Count
+.. image:: https://img.shields.io/readthedocs/django-relatives/latest.svg?label=Read%20the%20Docs
+   :target: https://django-relatives.readthedocs.io/
+   :alt: Read the documentation at https://django-relatives.readthedocs.io/
+
+.. image:: https://github.com/treyhunner/django-relatives/workflows/Tests/badge.svg
+   :target: https://github.com/treyhunner/django-relatives/actions?workflow=Tests
+   :alt: Tests
+
+.. image:: https://codecov.io/gh/treyhunner/django-relatives/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/treyhunner/django-relatives
+   :alt: Codecov
 
 Utilities for linking to related objects in Django admin
 
