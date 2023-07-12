@@ -131,4 +131,5 @@ class Meal(models.Model):
         Eater,
         related_name="meals_reviewed",
         on_delete=models.CASCADE,
+        null=True,
     )

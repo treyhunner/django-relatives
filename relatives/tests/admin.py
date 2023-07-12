@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .. import RelativesAdmin
+from .. import RelativesAdmin, link_related
 from . import models
 
 
@@ -44,9 +44,26 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(models.Image, ImageAdmin)
 
 
+class MealAdmin(admin.ModelAdmin):
+    list_display = ["name", "prep", "rev"]
+
+    @link_related("prepared")
+    def prep(self, obj):
+        return obj.prepared.name
+
+    prep.short_description = "cook"
+
+    @link_related("reviewed")
+    def rev(self, obj):
+        if obj.reviewed:
+            return obj.reviewed.name[:4] + "..."
+
+    rev.empty_value_display = "No one"
+
+
 admin.site.register(models.Movie)
 admin.site.register(models.Actor)
 admin.site.register(models.Book)
 admin.site.register(models.Journal)
 admin.site.register(models.Eater)
-admin.site.register(models.Meal)
+admin.site.register(models.Meal, MealAdmin)

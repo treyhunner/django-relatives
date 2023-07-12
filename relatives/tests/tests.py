@@ -12,6 +12,7 @@ from .models import (
     Pet,
     Ship,
     Sailor,
+    Meal,
     Movie,
     Actor,
     NotInAdmin,
@@ -22,6 +23,14 @@ from .models import (
     Journal,
     Eater,
 )
+
+
+class AuthenticatedTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_superuser("u", "u@example.com", "pass")
+
+    def login(self):
+        self.client.login(username=self.user.username, password="pass")
 
 
 class ObjectEditLinkTest(TestCase):
@@ -72,13 +81,7 @@ class ObjectLinkTest(TestCase):
         self.assertEqual(object_link(ship), "Star of India")
 
 
-class TemplateFilterTest(TestCase):
-    def setUp(self):
-        self.user = User.objects.create_superuser("u", "u@example.com", "pass")
-
-    def login(self):
-        self.client.login(username=self.user.username, password="pass")
-
+class TemplateFilterTest(AuthenticatedTestCase):
     def test_foreign_key(self):
         self.login()
         ship = Ship.objects.create(id=1, name="Star of India")
@@ -254,3 +257,36 @@ class RelativesAdminTests(TestCase):
         self.assertIn(
             b'<a href="/adm/tests/ship/1/change/">Star of India</a>', response.content
         )
+
+
+class LinkRelatedDecoratorTests(AuthenticatedTestCase):
+    def test_present_foreign_key_field(self):
+        self.login()
+        cook = Eater.objects.create(id=1, name="Christine Hanners")
+        reviewer = Eater.objects.create(id=2, name="James Neely")
+        Meal.objects.create(
+            name="tofu power bowl",
+            prepared=cook,
+            reviewed=reviewer,
+        )
+        response = self.client.get(reverse("admin:tests_meal_changelist"))
+        self.assertContains(response, "Cook")
+        self.assertContains(
+            response,
+            '<a href="/adm/tests/eater/1/change/">Christine Hanners</a>',
+        )
+        self.assertContains(
+            response,
+            '<a href="/adm/tests/eater/2/change/">Jame...</a>',
+        )
+
+    def test_null_foreign_key(self):
+        self.login()
+        cook = Eater.objects.create(id=1, name="Christine Hanners")
+        Meal.objects.create(
+            name="tofu power bowl",
+            prepared=cook,
+            reviewed=None,
+        )
+        response = self.client.get(reverse("admin:tests_meal_changelist"))
+        self.assertContains(response, "No one")

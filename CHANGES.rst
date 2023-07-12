@@ -6,6 +6,7 @@ Changes
 
 - Use related_name (if present) when linking to reverse relations
 - Update admin URL filters to be consistent with Django's defaults
+- Add RelativesAdmin for automatically linking related fields from change lists
 
 1.2.2 (2021-09-15)
 ------------------

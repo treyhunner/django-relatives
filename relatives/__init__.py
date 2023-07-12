@@ -1,6 +1,6 @@
 from importlib.metadata import version, PackageNotFoundError
 
-from .model_admin import RelativesMixin, RelativesAdmin
+from .model_admin import RelativesMixin, RelativesAdmin, link_related
 
 
 try:
@@ -10,4 +10,4 @@ except PackageNotFoundError:
     pass
 
 
-__all__ = ["RelativesMixin", "RelativesAdmin"]
+__all__ = ["RelativesMixin", "RelativesAdmin", "link_related"]

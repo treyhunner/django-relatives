@@ -1,7 +1,9 @@
+from functools import wraps
+
 from django.contrib.admin import ModelAdmin
 from django.core.exceptions import FieldDoesNotExist
 
-from .utils import object_link
+from .utils import object_link, object_edit_link
 
 
 def relation_link(related_field):
@@ -38,3 +40,17 @@ class RelativesMixin:
 
 class RelativesAdmin(RelativesMixin, ModelAdmin):
     """ModelAdmin that links to related fields."""
+
+
+def link_related(field):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(self, obj):
+            relation = getattr(obj, field)
+            value = func(self, obj)
+            if value is not None:
+                return object_edit_link(value)(relation)
+
+        return wrapper
+
+    return decorator
