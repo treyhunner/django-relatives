@@ -47,3 +47,12 @@ First install tox::
 To run tox and generate a coverage report (in ``htmlcov`` directory)::
 
     make test
+
+
+Releases
+--------
+
+To release to PyPI:
+
+1. Update the version in ``pyproject.toml``
+2. Run ``pdm publish``
