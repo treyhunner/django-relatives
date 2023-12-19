@@ -30,6 +30,10 @@ To make migrations you can run::
 Testing
 -------
 
+To install the package and its dependencies::
+
+    pip install -e .
+
 Please add tests for your code and ensure existing tests don't break.  To run
 the tests against your code::
 

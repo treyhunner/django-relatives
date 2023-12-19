@@ -254,3 +254,10 @@ class RelativesAdminTests(TestCase):
         self.assertIn(
             b'<a href="/adm/tests/ship/1/change/">Star of India</a>', response.content
         )
+
+    def test_verbose_name_used_in_change_list(self):
+        self.login()
+        ship = Ship.objects.create(id=1, name="Star of India")
+        Sailor.objects.create(name="John Ford", ship=ship)
+        response = self.client.get(reverse("admin:tests_sailor_changelist"))
+        self.assertIn(b'sea ship', response.content)  # verbose_name used
