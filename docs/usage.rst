@@ -20,6 +20,9 @@ Linking to foreign keys in change lists
 
 The easiest way to automatically to turn foreign key columns into hyperlinks in a Django admin change list is to inherit from :func:`RelativesAdmin <relatives.RelativesAdmin>` in your model admin.
 
+Example
+~~~~~~~
+
 .. code-block:: python
 
     from django.contrib import admin
