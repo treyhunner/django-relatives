@@ -1,7 +1,8 @@
-django-relatives
+Django Relatives
 ================
 
-django-relatives provides various utilites that make it easy to link related objects in the Django admin site.
+When using Django's admin site, I often find myself wishing I could easily visit model relations from my change lists and change forms.
+The django-relatives package is meant to do exactly this.
 
 Uses
 ----

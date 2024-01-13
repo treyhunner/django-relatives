@@ -34,7 +34,12 @@ def related_link_or_attribute(model, attr):
 
 
 class RelativesMixin:
-    """ModelAdmin mixin that makes list display foreign keys linked."""
+    """
+    ``ModelAdmin`` mixin that makes list display foreign keys linked.
+
+    This is used by ``RelativesAdmin``.
+    This can be used along with Django's default ``ModelAdmin`` instead of inheriting from ``RelativesAdmin``.
+    """
 
     def get_list_display(self, request):
         return [
@@ -43,4 +48,8 @@ class RelativesMixin:
 
 
 class RelativesAdmin(RelativesMixin, ModelAdmin):
-    """ModelAdmin that links to related fields."""
+    """
+    ``ModelAdmin`` that links to related fields.
+
+    This automatically applies a variation of the ``object_link`` utility to all ``list_display`` fields.
+    """
