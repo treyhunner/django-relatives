@@ -45,7 +45,7 @@ Read the ``CONTRIBUTING.rst`` file for tips on submitting a pull request.
 Screenshots
 -----------
 
-.. image:: https://raw.github.com/treyhunner/django-relatives/main/docs/images/object_edit_link_example.png
+.. image:: https://raw.github.com/treyhunner/django-relatives/main/docs/images/relatives_admin_example.png
    :alt: Use hyperlinks for foreign keys on change lists
    :target: https://django-relatives.readthedocs.org/en/latest/usage.html#change-lists
 
