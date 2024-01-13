@@ -119,13 +119,12 @@ Code
     from .models import Company, Employee
 
 
-    class CompanyAdmin(admin.ModelAdmin):
-        change_form_template = 'relatives/change_form.html'
-
-    admin.site.register(Company, CompanyAdmin)
-
-
     admin.site.register(Employee)
+
+
+    @admin.register(Company, CompanyAdmin)
+    class CompanyAdmin(admin.ModelAdmin):
+        change_form_template = "relatives/change_form.html"
 
 Screenshot
 ++++++++++
@@ -170,22 +169,21 @@ Code
     from .models import Company, Employee
 
 
+    admin.site.register(Employee)
+
+
     class EmployeeInline(admin.TabularInline):
         model = Employee
-        fields = [object_link, 'first_name', 'last_name']
+        fields = [object_link, "first_name", "last_name"]
         readonly_fields = fields
         extra = 0
         max_num = 0
         can_delete = False
 
 
+    @admin.register(Company)
     class CompanyAdmin(admin.ModelAdmin):
         inlines = [EmployeeInline]
-
-    admin.site.register(Company, CompanyAdmin)
-
-
-    admin.site.register(Employee)
 
 Screenshot
 ++++++++++
@@ -212,20 +210,19 @@ Code
     from .models import Company, Employee
 
 
+    admin.site.register(Employee)
+
+
     class EmployeeInline(admin.TabularInline):
         model = Employee
         edit_link = object_edit_link("Edit")
-        fields = [edit_link, 'employee_id', 'first_name', 'last_name']
+        fields = [edit_link, "employee_id", "first_name", "last_name"]
         readonly_fields = [edit_link]
 
 
+    @admin.register(Company)
     class CompanyAdmin(admin.ModelAdmin):
         inlines = [EmployeeInline]
-
-    admin.site.register(Company, CompanyAdmin)
-
-
-    admin.site.register(Employee)
 
 Screenshot
 ++++++++++
