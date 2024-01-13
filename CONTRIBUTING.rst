@@ -17,10 +17,12 @@ When creating a pull request, try to:
 .. _README: README.rst
 
 
-Pre-commit
-----------
+Linting & Pre-commit
+--------------------
 
-This project uses pre-commit to ensure linters and code formatters are run for all commits.
+This project uses `ruff <https://docs.astral.sh/ruff/>`_ for both linting and auto-formatting code.
+
+This project also uses pre-commit to ensure linters and code formatters are run for all commits.
 Please install the ``pre-commit``:
 
 .. code-block:: bash
@@ -66,6 +68,12 @@ First install tox:
 .. code-block:: bash
 
     $ pip install coverage tox
+
+To run tox:
+
+.. code-block:: bash
+
+    $ tox -p
 
 To run tox and generate a coverage report (in ``htmlcov`` directory):
 

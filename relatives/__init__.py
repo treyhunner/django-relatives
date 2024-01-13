@@ -5,7 +5,7 @@ from .model_admin import RelativesMixin, RelativesAdmin
 
 try:
     __version__ = version("django-relatives")
-except PackageNotFoundError:
+except PackageNotFoundError:  # pragma: nocover
     # package is not installed
     pass
 
