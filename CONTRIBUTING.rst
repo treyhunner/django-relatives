@@ -17,6 +17,25 @@ When creating a pull request, try to:
 .. _README: README.rst
 
 
+Linting & Pre-commit
+--------------------
+
+This project uses `ruff <https://docs.astral.sh/ruff/>`_ for both linting and auto-formatting code.
+
+This project also uses pre-commit to ensure linters and code formatters are run for all commits.
+Please install the ``pre-commit``:
+
+.. code-block:: bash
+
+    $ pip install pre-commit
+
+And then install the pre-commit hooks:
+
+.. code-block:: bash
+
+    $ pre-commit install
+
+
 Adding migrations
 -----------------
 
@@ -30,23 +49,37 @@ To make migrations you can run::
 Testing
 -------
 
-To install the package and its dependencies::
+To install the package and its dependencies:
 
-    pip install -e .
+.. code-block:: bash
 
-Please add tests for your code and ensure existing tests don't break.  To run
-the tests against your code::
+    $ pip install -e .
 
-    python runtests.py
+Please add tests for your code and ensure existing tests don't break.
+To run the tests against your code:
+
+.. code-block:: bash
+
+    $ python runtests.py
 
 Please use tox to test the code against supported Python and Django versions.
-First install tox::
+First install tox:
 
-    pip install coverage tox
+.. code-block:: bash
 
-To run tox and generate a coverage report (in ``htmlcov`` directory)::
+    $ pip install coverage tox
 
-    make test
+To run tox:
+
+.. code-block:: bash
+
+    $ tox -p
+
+To run tox and generate a coverage report (in ``htmlcov`` directory):
+
+.. code-block:: bash
+
+    $ make test
 
 
 Releases

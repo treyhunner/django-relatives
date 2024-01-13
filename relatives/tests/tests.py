@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from django.test import TestCase
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -260,4 +259,4 @@ class RelativesAdminTests(TestCase):
         ship = Ship.objects.create(id=1, name="Star of India")
         Sailor.objects.create(name="John Ford", ship=ship)
         response = self.client.get(reverse("admin:tests_sailor_changelist"))
-        self.assertIn(b'sea ship', response.content)  # verbose_name used
+        self.assertIn(b"sea ship", response.content)  # verbose_name used

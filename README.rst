@@ -26,41 +26,41 @@ django-relatives
    :target: https://codecov.io/gh/treyhunner/django-relatives
    :alt: Codecov
 
-Utilities for linking to related objects in Django admin
-
-This app requires Django 3.2 or greater and Python 3.8 or greater.
+Utilities for linking to related objects in Django admin.
 
 
 Getting Help
 ------------
 
-Documentation for django-relatives is available at
-https://django-relatives.readthedocs.org/
+See `the full documentation for django-relatives here <https://django-relatives.readthedocs.org/>`_.
 
-This app is available on `PyPI`_.
+This app is available on `PyPI <https://pypi.python.org/pypi/django-relatives/>`_.
 
-Submit issues on Github: https://github.com/treyhunner/django-relatives/issues
+`Submit issues on Github <https://github.com/treyhunner/django-relatives/issues>`_.
 
-Pull requests are welcome.  Read the CONTRIBUTING file for tips on submitting
-a pull request.
-
-.. _PyPI: https://pypi.python.org/pypi/django-relatives/
+Pull requests are welcome.
+Read the ``CONTRIBUTING.rst`` file for tips on submitting a pull request.
 
 
 Screenshots
 -----------
 
-.. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/contents_or_fk_link_example.png
+.. image:: https://raw.github.com/treyhunner/django-relatives/main/docs/images/object_edit_link_example.png
+   :alt: Use hyperlinks for foreign keys on change lists
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#change-lists
+
+.. image:: https://raw.github.com/treyhunner/django-relatives/main/docs/images/contents_or_fk_link_example.png
    :alt: Use hyperlinks for read-only foreign keys on change forms
-   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#linking-to-foreign-keys
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#change-forms
 
-.. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/object_edit_link_example.png
-   :alt: Add edit links to admin inlines
-   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#customizing-inline-edit-links
-
-.. image:: https://raw.github.com/treyhunner/django-relatives/master/docs/images/related_objects_example.png
+.. image:: https://raw.github.com/treyhunner/django-relatives/main/docs/images/related_objects_example.png
    :alt: Link to reverse relations from from change forms
-   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#linking-to-reverse-relations
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#reverse-relations
+
+.. image:: https://raw.github.com/treyhunner/django-relatives/main/docs/images/object_edit_link_example.png
+   :alt: Add edit links to admin inlines
+   :target: https://django-relatives.readthedocs.org/en/latest/usage.html#links-in-inlines
+
 
 Related Projects
 ----------------

@@ -5,7 +5,7 @@ init:
 
 test:
 	coverage erase
-	tox
+	tox -p
 	coverage html
 
 fast_test:
