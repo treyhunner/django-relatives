@@ -1,10 +1,9 @@
-from django.db import models
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
 
 class Pirate(models.Model):
-
     """Pirates have no admin URL"""
 
     name = models.CharField(max_length=80)
@@ -14,14 +13,12 @@ class Pirate(models.Model):
 
 
 class Pet(models.Model):
-
     """Pet have an admin URL and link to Pirates"""
 
     owner = models.ForeignKey(Pirate, null=True, on_delete=models.SET_NULL)
 
 
 class Ship(models.Model):
-
     """Ships have an admin URL and are linked to by sailors"""
 
     name = models.CharField(max_length=40)
@@ -31,7 +28,6 @@ class Ship(models.Model):
 
 
 class Sailor(models.Model):
-
     """Sailors have an admin URL and sometimes link to ships"""
 
     name = models.CharField(max_length=80)
@@ -44,14 +40,13 @@ class Sailor(models.Model):
 
     @property
     def ship_name(self):
-        self.ship.name
+        return self.ship.name
 
     def __str__(self):
         return self.name
 
 
 class Actor(models.Model):
-
     """Actors have an admin URL and a many-to-many relationship with movies"""
 
     name = models.CharField(max_length=80)
@@ -59,28 +54,24 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
-
     """Movies have an admin URL and are linked to (m2m) by actors"""
 
     name = models.CharField(max_length=80)
 
 
 class Something(models.Model):
-
     """Somethings don't have an admin URL and are linked to by NotInAdmins"""
 
     text = models.CharField(max_length=10)
 
 
 class NotInAdmin(models.Model):
-
     """NotInAdmins do not have an admin URL and link to Somethings"""
 
     fk = models.ForeignKey(Something, null=True, on_delete=models.SET_NULL)
 
 
 class Shape(models.Model):
-
     """Shapes have a name and a lowercase name property."""
 
     name = models.CharField(max_length=10)
@@ -91,14 +82,12 @@ class Shape(models.Model):
 
 
 class Book(models.Model):
-
     """Book have an admin URL and are linked to images via GenericForeignKey"""
 
     name = models.CharField(max_length=10)
 
 
 class Image(models.Model):
-
     """Image have an admin URL and link to Book via GenericForeignKey"""
 
     ct = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
@@ -107,7 +96,6 @@ class Image(models.Model):
 
 
 class Journal(models.Model):
-
     """Journal have an admin URL and are linked to images via GenericForeignKey
     also it have GenericRelation link to Images"""
 
@@ -116,14 +104,12 @@ class Journal(models.Model):
 
 
 class Eater(models.Model):
-
     """Eaters have an admin URL and Meal links to them in two ways."""
 
     name = models.CharField(max_length=10)
 
 
 class Meal(models.Model):
-
     """Meals link to Eaters twice."""
 
     name = models.CharField(max_length=10)

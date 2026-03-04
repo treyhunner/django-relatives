@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # django-relatives documentation build configuration file, created by
 # sphinx-quickstart on Thu May 16 15:28:58 2013.

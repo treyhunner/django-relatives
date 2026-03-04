@@ -1,22 +1,24 @@
-exclude: '.git|.tox'
-default_stages: [commit]
-fail_fast: true
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
       - id: check-yaml
+      - id: check-toml
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
-    rev: v0.1.13
+  - repo: local
     hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
+      - id: lint-code
+        name: Lint code with ruff
+        entry: just lint
+        language: system
+        pass_filenames: false
+        types: [python]
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
-    rev: v0.1.13
-    hooks:
-      - id: ruff-format
+      - id: format-code
+        name: Format code with ruff
+        entry: just format
+        language: system
+        pass_filenames: false
+        types: [python]

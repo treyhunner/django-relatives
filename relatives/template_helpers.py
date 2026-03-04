@@ -1,16 +1,20 @@
-from django.contrib.contenttypes.models import ContentType
-from django.core.cache import cache
+from types import SimpleNamespace
+
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.core.cache import cache
 
 
 class RelatedObject:
     """Generates fake django RelatedObject"""
 
     def __init__(self, field, ct_pk):
-        self.field = field
-        self.field.name = self.generate_field_name(field, ct_pk)
-        self.model = self.field.model
+        self.field = SimpleNamespace(
+            name=self.generate_field_name(field, ct_pk),
+            model=field.model,
+        )
+        self.model = field.model
         self.name = self.generate_name(field)
 
     @staticmethod
@@ -36,9 +40,7 @@ class GenericObjects:
         self.generic_objects = []
 
     def get_generic_objects(self):
-        try:
-            self._generic_fields_cache
-        except AttributeError:
+        if not hasattr(self, "_generic_fields_cache"):
             self._fill_generic_fields_cache()
         for generic_field in self._generic_fields_cache:
             params = {

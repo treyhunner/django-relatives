@@ -1,6 +1,24 @@
 Contributing
 ============
 
+Prerequisites
+-------------
+
+You'll need `uv <https://docs.astral.sh/uv/>`_ and `just <https://just.systems/>`_ installed.
+
+
+Setup
+-----
+
+Clone the repo and run:
+
+.. code-block:: bash
+
+    $ just setup
+
+This will create a virtual environment and install all dependencies.
+
+
 Pull Requests
 -------------
 
@@ -17,69 +35,64 @@ When creating a pull request, try to:
 .. _README: README.rst
 
 
-Linting & Pre-commit
---------------------
+Formatting & Linting
+---------------------
 
-This project uses `ruff <https://docs.astral.sh/ruff/>`_ for both linting and auto-formatting code.
+This project uses `ruff <https://docs.astral.sh/ruff/>`_ for linting and formatting.
 
-This project also uses pre-commit to ensure linters and code formatters are run for all commits.
-Please install the ``pre-commit``:
-
-.. code-block:: bash
-
-    $ pip install pre-commit
-
-And then install the pre-commit hooks:
+To auto-format and fix lint issues:
 
 .. code-block:: bash
 
-    $ pre-commit install
+    $ just format
+
+To check without modifying:
+
+.. code-block:: bash
+
+    $ just lint
 
 
-Adding migrations
+Adding Migrations
 -----------------
 
-When you add new models or make changes to models, you'll need to make migrations before the tests will run.
+When you add new models or make changes to models, you'll need to make migrations before the tests will run:
 
-To make migrations you can run::
+.. code-block:: bash
 
-    python runtests.py makemigrations
+    $ just makemigrations
 
 
 Testing
 -------
 
-To install the package and its dependencies:
+To run tests on your current Python version:
 
 .. code-block:: bash
 
-    $ pip install -e .
+    $ just test
 
-Please add tests for your code and ensure existing tests don't break.
-To run the tests against your code:
-
-.. code-block:: bash
-
-    $ python runtests.py
-
-Please use tox to test the code against supported Python and Django versions.
-First install tox:
+To run the full tox test matrix across Python and Django versions:
 
 .. code-block:: bash
 
-    $ pip install coverage tox
+    $ just test-matrix
 
-To run tox:
-
-.. code-block:: bash
-
-    $ tox -p
-
-To run tox and generate a coverage report (in ``htmlcov`` directory):
+To run tests with a coverage report (in ``htmlcov`` directory):
 
 .. code-block:: bash
 
-    $ make test
+    $ just test-cov
+
+
+Documentation
+-------------
+
+To build the Sphinx documentation:
+
+.. code-block:: bash
+
+    $ just docs
 
 
 Releases
@@ -87,5 +100,6 @@ Releases
 
 To release to PyPI:
 
-1. Update the version in ``pyproject.toml``
-2. Run ``pdm publish``
+1. Update the version: ``just bump patch`` (or ``minor``/``major``)
+2. Build: ``just build``
+3. Publish: ``just publish``

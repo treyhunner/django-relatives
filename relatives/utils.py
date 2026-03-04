@@ -1,12 +1,14 @@
-from django.urls import reverse, NoReverseMatch
+from django.urls import NoReverseMatch, reverse
 from django.utils.encoding import smart_str
 from django.utils.html import format_html
 
 
 def get_admin_url(obj):
     """Return admin URL for given object (raise NoReverseMatch on error)"""
-    options = obj._meta.app_label, obj._meta.model_name
-    return reverse("admin:%s_%s_change" % options, args=[obj.pk])
+    return reverse(
+        f"admin:{obj._meta.app_label}_{obj._meta.model_name}_change",
+        args=[obj.pk],
+    )
 
 
 def object_edit_link(edit_text=None, blank_text=None):
@@ -29,7 +31,9 @@ def object_edit_link(edit_text=None, blank_text=None):
         try:
             if obj.pk:
                 return format_html(
-                    '<a href="{0}">{1}</a>', get_admin_url(obj), link_text
+                    '<a href="{0}">{1}</a>',
+                    get_admin_url(obj),
+                    link_text,
                 )
         except NoReverseMatch:
             pass
@@ -41,7 +45,7 @@ def object_edit_link(edit_text=None, blank_text=None):
         else:
             return blank_text
 
-    object_link.__name__ = str("")
+    object_link.__name__ = ""
     return object_link
 
 

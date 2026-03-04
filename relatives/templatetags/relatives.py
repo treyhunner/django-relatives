@@ -1,13 +1,12 @@
-from django.template import Library
-from django.urls import reverse, NoReverseMatch
-from django.utils.encoding import smart_str
-from django.utils.safestring import mark_safe
 from django.contrib.admin.utils import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
+from django.template import Library
+from django.urls import NoReverseMatch, reverse
+from django.utils.encoding import smart_str
+from django.utils.safestring import mark_safe
 
 from ..template_helpers import GenericObjects
 from ..utils import get_admin_url
-
 
 register = Library()
 
@@ -38,7 +37,7 @@ def contents_or_fk_link(field):
         ):
             try:
                 return mark_safe(
-                    '<a href="%s">%s</a>' % (get_admin_url(related_obj), contents)
+                    f'<a href="{get_admin_url(related_obj)}">{contents}</a>'
                 )
             except NoReverseMatch:
                 pass
@@ -80,9 +79,7 @@ def related_objects(obj):
         try:
             to_model = getattr(related, "related_model", related.model)
             url = reverse(
-                "admin:{0}_{1}_changelist".format(
-                    to_model._meta.app_label, to_model._meta.model_name
-                )
+                f"admin:{to_model._meta.app_label}_{to_model._meta.model_name}_changelist"
             )
         except NoReverseMatch:
             continue

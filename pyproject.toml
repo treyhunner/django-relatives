@@ -1,6 +1,6 @@
 [build-system]
-requires = ["pdm-pep517"]
-build-backend = "pdm.pep517.api"
+requires = ["uv_build>=0.9.0,<0.10.0"]
+build-backend = "uv_build"
 
 [project]
 name = "django-relatives"
@@ -21,6 +21,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Framework :: Django",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.2",
@@ -30,11 +31,36 @@ dependencies = [
     "Django>=4.2",
 ]
 
-[tool.pdm.scripts]
-test = "python runtests.py"
-
 [project.urls]
 documentation = "https://django-relatives.readthedocs.io"
 repository = "https://github.com/treyhunner/django-relatives"
 issue-tracker = "https://github.com/treyhunner/django-relatives/issues"
 changelog = "https://github.com/treyhunner/django-relatives/blob/main/CHANGES.rst"
+
+[dependency-groups]
+test = ["coverage[toml]", "tox", "tox-uv"]
+lint = ["ruff"]
+docs = ["Sphinx", "furo", "django-relatives"]
+dev = [{include-group = "test"}, {include-group = "lint"}, {include-group = "docs"}]
+
+[tool.uv]
+required-version = ">=0.9.6"
+
+[tool.uv.build-backend]
+module-name = "relatives"
+module-root = ""
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+extend-select = [
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+]
+
+[tool.ruff.format]
+quote-style = "double"

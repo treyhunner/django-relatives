@@ -5,7 +5,6 @@ from os.path import abspath, dirname
 import django
 from django.conf import settings
 
-
 sys.path.insert(0, abspath(dirname(__file__)))
 
 
