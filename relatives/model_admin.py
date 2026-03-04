@@ -11,7 +11,6 @@ def relation_link(related_field_name):
             return object_link(obj)
 
     object_relation_link.__name__ = related_field_name
-    object_relation_link.allow_tags = True
     object_relation_link.admin_order_field = related_field_name
     return object_relation_link
 

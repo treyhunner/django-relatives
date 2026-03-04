@@ -1,6 +1,16 @@
 Changes
 =======
 
+1.4.0
+-----
+
+- Add support for Django 5.2
+- Add support for Python 3.13
+- Drop support for Django 3.2 and 5.0
+- Drop support for Python 3.8 and 3.9
+- Fix ``length_is`` template filter removed in Django 5.0
+- Remove deprecated ``allow_tags`` attributes
+
 1.3.0
 -----
 

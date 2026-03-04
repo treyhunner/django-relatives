@@ -1,25 +1,26 @@
-from django.test import TestCase
-from django.template.loader import render_to_string
-from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
+from django.template.loader import render_to_string
+from django.test import TestCase
+from django.urls import reverse
 
-from relatives.utils import object_link, object_edit_link
+from relatives.utils import object_edit_link, object_link
+
 from .models import (
-    Pirate,
-    Pet,
-    Ship,
-    Sailor,
-    Movie,
     Actor,
-    NotInAdmin,
-    Shape,
-    Something,
     Book,
+    Eater,
     Image,
     Journal,
-    Eater,
+    Movie,
+    NotInAdmin,
+    Pet,
+    Pirate,
+    Sailor,
+    Shape,
+    Ship,
+    Something,
 )
 
 

@@ -1,13 +1,10 @@
-from importlib.metadata import version, PackageNotFoundError
+import contextlib
+from importlib.metadata import PackageNotFoundError, version
 
-from .model_admin import RelativesMixin, RelativesAdmin
+from .model_admin import RelativesAdmin, RelativesMixin
 
-
-try:
+with contextlib.suppress(PackageNotFoundError):  # pragma: nocover
     __version__ = version("django-relatives")
-except PackageNotFoundError:  # pragma: nocover
-    # package is not installed
-    pass
 
 
 __all__ = ["RelativesMixin", "RelativesAdmin"]

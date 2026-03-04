@@ -8,3 +8,5 @@ htmlcov
 build
 docs/_build
 MANIFEST
+.venv
+uv.lock
