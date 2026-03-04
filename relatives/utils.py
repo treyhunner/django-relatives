@@ -42,10 +42,8 @@ def object_edit_link(edit_text=None, blank_text=None):
             return blank_text
 
     object_link.__name__ = str("")
-    object_link.allow_tags = True
     return object_link
 
 
 object_link = object_edit_link()
-object_link.allow_tags = True
 object_link.__doc__ += "\n\nEquivalent to object_edit_link()(obj)"
