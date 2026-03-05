@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "django-relatives"
-version = "1.4.0"
+version = "1.4.1"
 description = "Utilities for linking to related objects in Django admin"
 authors = [{name = "Trey Hunner", email = "trey@treyhunner.com"}]
 license = "MIT"
