@@ -59,7 +59,7 @@ jobs:
         run: uv run tox -p
 
       - name: Generate coverage report
-        run: uv run coverage xml
+        run: uv run coverage combine && uv run coverage xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
