@@ -13,9 +13,12 @@ test *args:
 
 # Run tests with coverage
 test-cov:
-    uv run coverage run runtests.py
-    uv run coverage report
-    uv run coverage html
+    just _cov run runtests.py
+    just _cov report
+    just _cov html
+
+@_cov *args:
+    uv run coverage {{ args }}
 
 # Run full tox test matrix
 test-matrix:
