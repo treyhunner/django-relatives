@@ -6,6 +6,11 @@ _default:
 # Install dependencies and set up dev environment
 setup:
     uv sync --all-groups
+    uv run --group dev prek install
+
+# Run prek hooks manually
+prek *args:
+    uv run --group dev prek run {{ args }}
 
 # Run tests on current Python
 test *args:
@@ -36,6 +41,7 @@ lint:
 
 # Run all checks (format, lint, test)
 check: format lint test
+    @just prek --all-files
 
 # Build Sphinx docs
 docs:

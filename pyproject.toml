@@ -41,7 +41,12 @@ changelog = "https://github.com/treyhunner/django-relatives/blob/main/CHANGES.rs
 test = ["coverage[toml]", "tox", "tox-uv"]
 lint = ["ruff"]
 docs = ["Sphinx", "furo", "django-relatives"]
-dev = [{include-group = "test"}, {include-group = "lint"}, {include-group = "docs"}]
+dev = [
+    {include-group = "test"},
+    {include-group = "lint"},
+    {include-group = "docs"},
+    "prek",
+]
 
 [tool.uv]
 required-version = ">=0.9.6"
