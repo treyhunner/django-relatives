@@ -15,6 +15,6 @@
     line-height: 36px;
     list-style-type: none;
 }
-form {
+#content-main form:not(.object-tools *) {
     margin-right: 200px;
 }
