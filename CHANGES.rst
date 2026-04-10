@@ -1,6 +1,18 @@
 Changes
 =======
 
+1.4.2
+-----
+
+- Fix form margin CSS to avoid affecting object tools
+
+1.4.1
+-----
+
+- Add support for Python 3.14
+- Fix ``GenericForeignKey`` cache bug
+- Fix admin styling for newer Django admin pages
+
 1.4.0
 -----
 
